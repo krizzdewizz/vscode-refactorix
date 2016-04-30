@@ -35,7 +35,7 @@ export function singleStatementBlockToExpression(replaceAll?: boolean) {
             .then(ok => {
                 if (ok) {
                     editor.selection = sel;
-                    if (replaceAll && all.overlaps && overlapsSafetyLeft > 0) {
+                    if (replaceAll && all.changes.length > 1 && all.overlaps && overlapsSafetyLeft > 0) {
                         doIt();
                         overlapsSafetyLeft--;
                     }
