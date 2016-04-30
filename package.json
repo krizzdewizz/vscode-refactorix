@@ -22,6 +22,14 @@
       {
         "command": "extension.singleStatementBlockToExpression",
         "title": "x: Arrow function single statement block to expression"
+      },
+      {
+        "command": "extension.singleStatementBlockToExpressionAll",
+        "title": "x: Arrow function single statement block to expression (all)"
+      },
+      {
+        "command": "extension.expressionToBlock",
+        "title": "x: Expression to block"
       }
     ]
   },

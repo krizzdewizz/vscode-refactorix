@@ -1,17 +1,5 @@
 import * as vscode from 'vscode';
-
-function getIndent(text: string): string {
-    let s = '';
-    for (let i = 0, n = text.length; i < n; i++) {
-        const c = text[i];
-        if (c === ' ' || c === '\t') {
-            s += c;
-        } else {
-            break;
-        }
-    }
-    return s;
-}
+import {getIndentAtLine} from './refactor';
 
 export function extractVariable(): void {
     const editor = vscode.window.activeTextEditor;
@@ -22,8 +10,7 @@ export function extractVariable(): void {
     const doc = editor.document;
     const sel = editor.selection;
     const text = doc.getText(sel);
-    const lineText = doc.getText(new vscode.Range(new vscode.Position(sel.start.line, 0), new vscode.Position(sel.start.line, 30)));
-    const indent = getIndent(lineText);
+    const indent = getIndentAtLine(doc, sel.start.line);
     const line = doc.lineAt(sel.start);
     const theVar = 'xxx';
     const prefix = `${indent}const `;

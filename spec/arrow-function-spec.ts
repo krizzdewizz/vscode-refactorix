@@ -42,7 +42,7 @@ describe('arrow-function-spec-data.ts', () => {
 
         it('should write changes', () => {
             const newText = writeChanges(sourceFile, changes.changes);
-            fs.writeFileSync('./spec/arrow-function-spec-data.ts-rewritten.ts', newText);
+            // fs.writeFileSync('./spec/arrow-function-spec-data.ts-rewritten.ts', newText);
             const newSource: ParseDiagnostics = <any>ts.createSourceFile(fileName, newText, ts.ScriptTarget.ES6, true);
             if (newSource.parseDiagnostics.length > 0) {
                 // console.error(`error while reparsing ${newText}`);
