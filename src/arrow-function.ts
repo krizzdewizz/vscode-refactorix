@@ -4,9 +4,6 @@ import {findChildOfKind, contains, childrenOf, hasOverlaps} from './refactor';
 const RETURN = 'return ';
 
 function inRange(node: ts.Node, range?: ts.TextSpan) {
-    // debugger;
-    console.log('range=', range);
-
     if (!range) {
         return true;
     }
