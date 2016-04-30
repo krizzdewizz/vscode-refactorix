@@ -1,7 +1,7 @@
 import * as vs from 'vscode';
 import * as ts from 'typescript';
 import {singleStatementBlockToExpressions, expressionToBlock as coreExpressionToBlock} from './arrow-function';
-import {getIndentAtLine, getTabs, ParseDiagnostics} from './refactor';
+import {getIndentAtLine, getTabs, ParseDiagnostics} from './refactor-vscode';
 
 function selectionToSpan(doc: vs.TextDocument, sel: vs.Selection): ts.TextSpan {
     return { start: doc.offsetAt(sel.start), length: doc.offsetAt(sel.end) - doc.offsetAt(sel.start) };
