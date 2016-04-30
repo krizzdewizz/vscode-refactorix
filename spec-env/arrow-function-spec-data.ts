@@ -2,6 +2,19 @@ function singleStatementBlockToExpression() {
 
     function nok() {
 
+        let editor: any;
+        let all: any;
+
+        editor.edit(builder => {
+            all.changes.forEach(change => {
+                change();
+            });
+        });
+
+        all.changes.forEach(change => {
+            change();
+        });
+
         () => {
             return 0;
         };

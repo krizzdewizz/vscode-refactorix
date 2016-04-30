@@ -1,39 +1,21 @@
 import * as ts from 'typescript';
+import {findChildOfKind, contains, childrenOf, hasOverlaps} from './refactor';
 
 const RETURN = 'return ';
 
-function findChildOfKind(node: ts.Node, kind: ts.SyntaxKind): ts.Node {
-    return node.getChildren().find(it => it.kind === kind);
-}
+function inRange(node: ts.Node, range?: ts.TextSpan) {
+    // debugger;
+    console.log('range=', range);
 
-function children(node: ts.Node): ts.Node[] {
-    const all = [];
-    ts.forEachChild(node, it => all.push(it));
-    return all;
-}
-
-export function writeChanges(sourceFile: ts.SourceFile, changes: ts.TextChange[]): string {
-    let result = sourceFile.getFullText();
-    for (let i = changes.length - 1; i >= 0; i--) {
-        const change = changes[i];
-        const head = result.slice(0, change.span.start);
-        const tail = result.slice(change.span.start + change.span.length);
-        result = head + change.newText + tail;
+    if (!range) {
+        return true;
     }
-    return result;
+    // return contains(range, node.getStart()) && contains(range, node.getEnd());
+    return node.getStart() < range.start && node.getEnd() > range.start + range.length;
 }
 
-function contains(s: ts.TextSpan, p: number): boolean {
-    return p >= s.start && p <= s.start + s.length;
-}
-
-function hasOverlaps(change: ts.TextChange, all: ts.TextChange[]): boolean {
-    const start = change.span.start;
-    const end = start + change.span.length;
-    return !!all.map(it => it.span).find(it => contains(it, start) || contains(it, end));
-}
-
-export function singleStatementBlockToExpressions(sourceFile: ts.SourceFile, range?: { start: number, end: number }): { changes: ts.TextChange[], overlaps: boolean } {
+export function singleStatementBlockToExpressions(sourceFile: ts.SourceFile, range?: ts.TextSpan): { changes: ts.TextChange[], overlaps: boolean } {
+    const text = sourceFile.getFullText();
     const changes: ts.TextChange[] = [];
     let overlaps = false;
     visitor(sourceFile);
@@ -43,11 +25,10 @@ export function singleStatementBlockToExpressions(sourceFile: ts.SourceFile, ran
         if (node.kind === ts.SyntaxKind.ArrowFunction) {
             const block = <ts.Block>findChildOfKind(node, ts.SyntaxKind.Block);
             if (block) {
-                const kids = children(block);
-                if (kids.length === 1) {
-                    const first = kids[0];
-                    if (first.kind === ts.SyntaxKind.ReturnStatement || first.kind === ts.SyntaxKind.ExpressionStatement) {
-                        const text = sourceFile.getFullText();
+                const children = childrenOf(block);
+                if (children.length === 1) {
+                    const first = children[0];
+                    if (first.kind === ts.SyntaxKind.ReturnStatement || first.kind === ts.SyntaxKind.ExpressionStatement && inRange(node, range)) {
                         let newText = text.substring(first.getStart(), first.getEnd());
                         if (newText.endsWith(';')) {
                             newText = newText.substring(0, newText.length - 1);
@@ -66,12 +47,8 @@ export function singleStatementBlockToExpressions(sourceFile: ts.SourceFile, ran
                 }
             }
         }
+
         ts.forEachChild(node, visitor);
     }
 }
 
-export interface ParseDiagnostics extends ts.SourceFile {
-    parseDiagnostics: {
-        messageText: string;
-    }[]
-};

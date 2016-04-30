@@ -1,6 +1,18 @@
 import * as fs from 'fs';
 import * as ts from 'typescript';
-import {ParseDiagnostics, writeChanges, singleStatementBlockToExpressions} from '../src/arrow-function';
+import {singleStatementBlockToExpressions} from '../src/arrow-function';
+import {ParseDiagnostics} from '../src/refactor';
+
+export function writeChanges(sourceFile: ts.SourceFile, changes: ts.TextChange[]): string {
+    let result = sourceFile.getFullText();
+    for (let i = changes.length - 1; i >= 0; i--) {
+        const change = changes[i];
+        const head = result.slice(0, change.span.start);
+        const tail = result.slice(change.span.start + change.span.length);
+        result = head + change.newText + tail;
+    }
+    return result;
+}
 
 describe('parseDiagnostics', () => {
     it('should have errors', () => {
