@@ -3,14 +3,36 @@
 	"version": "0.1.0",
 	"configurations": [
 		{
+			"name": "jasmine",
+			"type": "node",
+			"request": "launch",
+			"program": "C:/Users/gigi/AppData/Roaming/npm/node_modules/jasmine/bin/jasmine.js",
+			"stopOnEntry": false,
+			"args": [],
+			"cwd": "${workspaceRoot}",
+			"preLaunchTask": null,
+			"runtimeExecutable": "",
+			"runtimeArgs": [
+				"--nolazy"
+			],
+			"env": {
+				"NODE_ENV": "development"
+			},
+			"externalConsole": false,
+			"sourceMaps": false,
+			"outDir": null
+		},
+		{
 			"name": "Launch Extension",
 			"type": "extensionHost",
 			"request": "launch",
 			"runtimeExecutable": "${execPath}",
-			"args": ["--extensionDevelopmentPath=${workspaceRoot}" ],
+			"args": [
+				"--extensionDevelopmentPath=${workspaceRoot}"
+			],
 			"stopOnEntry": false,
 			"sourceMaps": true,
-			"outDir": "out/src",
+			"outDir": "${workspaceRoot}/out/src",
 			"preLaunchTask": "npm"
 		},
 		{
@@ -18,10 +40,13 @@
 			"type": "extensionHost",
 			"request": "launch",
 			"runtimeExecutable": "${execPath}",
-			"args": ["--extensionDevelopmentPath=${workspaceRoot}", "--extensionTestsPath=${workspaceRoot}/out/test" ],
+			"args": [
+				"--extensionDevelopmentPath=${workspaceRoot}",
+				"--extensionTestsPath=${workspaceRoot}/out/test"
+			],
 			"stopOnEntry": false,
 			"sourceMaps": true,
-			"outDir": "out/test",
+			"outDir": "${workspaceRoot}/out/test",
 			"preLaunchTask": "npm"
 		}
 	]
