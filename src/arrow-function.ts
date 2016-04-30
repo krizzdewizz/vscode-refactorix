@@ -48,7 +48,7 @@ export function singleStatementBlockToExpressions(sourceFile: ts.SourceFile, ran
                 const children = childrenOf(block);
                 if (children.length === 1) {
                     const first = children[0];
-                    if (first.kind === ts.SyntaxKind.ReturnStatement || first.kind === ts.SyntaxKind.ExpressionStatement && inRange(node, range)) {
+                    if ((first.kind === ts.SyntaxKind.ReturnStatement || first.kind === ts.SyntaxKind.ExpressionStatement) && inRange(node, range)) {
                         let newText = text.substring(first.getStart(), first.getEnd());
                         if (newText.endsWith(';')) {
                             newText = newText.substring(0, newText.length - 1);

@@ -7,8 +7,8 @@ import {singleStatementBlockToExpression, expressionToBlock} from './arrow-funct
 import {extractVariable} from './extract-variable';
 
 export function activate(context: vscode.ExtensionContext) {
-    context.subscriptions.push(vscode.commands.registerCommand('extension.refactorixExtractVariable', extractVariable));
-    context.subscriptions.push(vscode.commands.registerCommand('extension.singleStatementBlockToExpression', () => singleStatementBlockToExpression(false)));
-    context.subscriptions.push(vscode.commands.registerCommand('extension.singleStatementBlockToExpressionAll', () => singleStatementBlockToExpression(true)));
-    context.subscriptions.push(vscode.commands.registerCommand('extension.expressionToBlock', expressionToBlock));
+    context.subscriptions.push(vscode.commands.registerCommand('extension.refactorix.ExtractVariable', extractVariable));
+    context.subscriptions.push(vscode.commands.registerCommand('extension.refactorix.SingleStatementBlockToExpression', () => singleStatementBlockToExpression(false)));
+    context.subscriptions.push(vscode.commands.registerCommand('extension.refactorix.SingleStatementBlockToExpressionAll', () => singleStatementBlockToExpression(true)));
+    context.subscriptions.push(vscode.commands.registerCommand('extension.refactorix.ExpressionToBlock', expressionToBlock));
 }

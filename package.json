@@ -16,19 +16,19 @@
   "contributes": {
     "commands": [
       {
-        "command": "extension.refactorixExtractVariable",
+        "command": "extension.refactorix.ExtractVariable",
         "title": "x: Extract variable"
       },
       {
-        "command": "extension.singleStatementBlockToExpression",
+        "command": "extension.refactorix.SingleStatementBlockToExpression",
         "title": "x: Arrow function single statement block to expression"
       },
       {
-        "command": "extension.singleStatementBlockToExpressionAll",
+        "command": "extension.refactorix.SingleStatementBlockToExpressionAll",
         "title": "x: Arrow function single statement block to expression (all)"
       },
       {
-        "command": "extension.expressionToBlock",
+        "command": "extension.refactorix.ExpressionToBlock",
         "title": "x: Expression to block"
       }
     ]
