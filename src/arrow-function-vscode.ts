@@ -1,15 +1,7 @@
 import * as vs from 'vscode';
 import * as ts from 'typescript';
 import {singleStatementBlockToExpressions, expressionToBlock as coreExpressionToBlock} from './arrow-function';
-import {getIndentAtLine, getTabs, ParseDiagnostics} from './refactor-vscode';
-
-function selectionToSpan(doc: vs.TextDocument, sel: vs.Selection): ts.TextSpan {
-    return { start: doc.offsetAt(sel.start), length: doc.offsetAt(sel.end) - doc.offsetAt(sel.start) };
-}
-
-function changeToRange(doc: vs.TextDocument, change: ts.TextChange): vs.Range {
-    return new vs.Range(doc.positionAt(change.span.start), doc.positionAt(change.span.start + change.span.length));
-}
+import {getIndentAtLine, getTabs, ParseDiagnostics, changeToRange, selectionToSpan} from './refactor-vscode';
 
 export function expressionToBlock() {
     const editor = vs.window.activeTextEditor;

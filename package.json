@@ -30,6 +30,14 @@
       {
         "command": "extension.refactorix.ExpressionToBlock",
         "title": "x: Expression to block"
+      },
+      {
+        "command": "extension.refactorix.AddSemicolons",
+        "title": "x: Add semicolons"
+      },
+      {
+        "command": "extension.refactorix.RemoveSemicolons",
+        "title": "x: Remove semicolons"
       }
     ]
   },

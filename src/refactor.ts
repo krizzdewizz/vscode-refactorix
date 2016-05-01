@@ -29,8 +29,8 @@ export function childrenOf(node: ts.Node): ts.Node[] {
     return all;
 }
 
-export function contains(s: ts.TextSpan, pos: number): boolean {
-    return pos >= s.start && pos <= s.start + s.length;
+export function contains(span: ts.TextSpan, pos: number): boolean {
+    return pos >= span.start && pos <= span.start + span.length;
 }
 
 export function hasOverlaps(change: ts.TextChange, all: ts.TextChange[]): boolean {
