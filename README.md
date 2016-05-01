@@ -8,7 +8,9 @@ Download [Refactorix](https://github.com/krizzdewizz/vscode-refactorix/raw/maste
 
 Restart Visual Studio Code.
 
-By pressing `F1` and entering `x:` you should now see Refactorix commands in the drop down.
+By pressing `F1` and entering `x:` you should now see Refactorix commands in the drop down:
+
+![Commands](doc/commands.png "Refactorix commands")
 
 ## Refactorings
 
