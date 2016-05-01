@@ -15,10 +15,10 @@ By pressing `F1` and entering `x:` you should now see Refactorix commands in the
 
 ## Refactorings
 
-### Add/Remove semicolons
+### Semicolons.Add / Semicolons.Remove
 Adds or removes semicolons for all statements in the active documents.
 
-### Arrow function expression to block
+### ArrowFunction.ExpressionToBlock
 Encloses an arrow function expression within a block.
 
 Before:
@@ -35,7 +35,7 @@ After:
 
 Place the cursor inside such a function and invoke the command.
 
-### Arrow function single statement block to expression
+### ArrowFunction.SingleStatementBlockToExpression
 If an arrow function block contains exactly 1 statement, replaces the block with that statement.
 
 Before:
@@ -50,9 +50,9 @@ After:
 () => 0;
 ```
 
-Place the cursor inside such a function and invoke the command. `extension.refactorix.ArrowFunction.SingleStatementBlockToExpressionAll` operates on all occurences in the active document.
+Place the cursor inside such a function and invoke the command. `ArrowFunction.SingleStatementBlockToExpressionAll` operates on all occurences in the active document.
 
-### Extract variable
+### ExtractVariable
 Replaces the selected text with a `const` variable declaration. This command operates on text- rather than AST transformation, so the location of the
 variable declaration may not be appropriate in all the cases.
 
