@@ -38,3 +38,10 @@ export function hasOverlaps(change: ts.TextChange, all: ts.TextChange[]): boolea
     const end = start + change.span.length;
     return all.map(it => it.span).some(it => contains(it, start) || contains(it, end));
 }
+
+export function inRange(node: ts.Node, range?: ts.TextSpan): boolean {
+    if (!range) {
+        return true;
+    }
+    return node.getStart() < range.start && node.getEnd() > range.start + range.length;
+}

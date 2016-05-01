@@ -1,15 +1,8 @@
 import * as ts from 'typescript';
-import {findChildOfKind, contains, childrenOf, hasOverlaps} from './refactor';
+import {findChildOfKind, contains, childrenOf, hasOverlaps, inRange} from './refactor';
 
 const RETURN = 'return ';
 const ARROW = '=>';
-
-function inRange(node: ts.Node, range?: ts.TextSpan): boolean {
-    if (!range) {
-        return true;
-    }
-    return node.getStart() < range.start && node.getEnd() > range.start + range.length;
-}
 
 export function expressionToBlock(sourceFile: ts.SourceFile, range: ts.TextSpan, indent: string, tab: string): ts.TextChange {
     const text = sourceFile.getFullText();
