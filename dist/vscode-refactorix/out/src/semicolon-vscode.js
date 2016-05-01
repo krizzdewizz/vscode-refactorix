@@ -1,30 +1,26 @@
 "use strict";
 var vs = require('vscode');
-var ts = require('typescript');
 var semicolon_1 = require('./semicolon');
+var refactor_vscode_1 = require('./refactor-vscode');
 function semicolons(add) {
-    var editor = vs.window.activeTextEditor;
-    if (!editor) {
+    var source = refactor_vscode_1.createSourceFileFromActiveEditor();
+    if (!source) {
         return;
     }
-    var doc = editor.document;
-    var sourceFile = ts.createSourceFile(doc.fileName, doc.getText(), ts.ScriptTarget.ES6, true);
-    if (sourceFile.parseDiagnostics.length > 0) {
-        return;
-    }
-    var sel = editor.selection;
-    var changes = semicolon_1.semicolons(sourceFile, add);
+    var editor = source.editor;
+    var document = editor.document, selection = editor.selection;
+    var changes = semicolon_1.semicolons(source.sourceFile, add);
     if (changes.length === 0) {
         return;
     }
     editor.edit(function (builder) {
         var doIt = add
-            ? function (change) { return builder.insert(doc.positionAt(change), ';'); }
-            : function (change) { return builder.replace(new vs.Range(doc.positionAt(change - 1), doc.positionAt(change)), ''); };
+            ? function (change) { return builder.insert(document.positionAt(change), ';'); }
+            : function (change) { return builder.replace(new vs.Range(document.positionAt(change - 1), document.positionAt(change)), ''); };
         changes.forEach(doIt);
     }).then(function (ok) {
         if (ok) {
-            editor.selection = sel;
+            editor.selection = selection;
         }
     });
 }

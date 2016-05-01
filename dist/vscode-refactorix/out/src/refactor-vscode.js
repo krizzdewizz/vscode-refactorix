@@ -2,6 +2,7 @@
 function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
+var ts = require('typescript');
 var vs = require('vscode');
 var refactor_1 = require('./refactor');
 function getTabs(editor, nTabs) {
@@ -21,5 +22,18 @@ function changeToRange(doc, change) {
     return new vs.Range(doc.positionAt(change.span.start), doc.positionAt(change.span.start + change.span.length));
 }
 exports.changeToRange = changeToRange;
+function createSourceFileFromActiveEditor() {
+    var editor = vs.window.activeTextEditor;
+    if (!editor) {
+        return undefined;
+    }
+    var doc = editor.document;
+    var sourceFile = ts.createSourceFile(doc.fileName, doc.getText(), ts.ScriptTarget.ES6, true);
+    if (sourceFile.parseDiagnostics.length > 0) {
+        return undefined;
+    }
+    return { editor: editor, sourceFile: sourceFile };
+}
+exports.createSourceFileFromActiveEditor = createSourceFileFromActiveEditor;
 __export(require('./refactor'));
 //# sourceMappingURL=refactor-vscode.js.map
