@@ -1,5 +1,5 @@
 # vscode-refactorix
-Refactoring tools for Visual Studio Code.
+TypeScript refactoring tools for Visual Studio Code.
 
 ## Installation
 Download [Refactorix](https://github.com/krizzdewizz/vscode-refactorix/raw/master/dist/vscode-refactorix-0.0.1.vsix) and run
