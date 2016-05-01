@@ -6,7 +6,7 @@ Download [Refactorix](https://github.com/krizzdewizz/vscode-refactorix/raw/maste
 
 `code vscode-refactorix-0.0.1.vsix`
 
-Restarting Visual Studio Code.
+Restart Visual Studio Code.
 
 By pressing `F1` and entering `x:` you should now see Refactorix commands in the drop down.
 
