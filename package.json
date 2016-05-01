@@ -29,7 +29,7 @@
       },
       {
         "command": "extension.refactorix.ArrowFunction.ExpressionToBlock",
-        "title": "x: Arrow function Expression to block"
+        "title": "x: Arrow function expression to block"
       },
       {
         "command": "extension.refactorix.Semicolons.Add",
