@@ -9,9 +9,9 @@ import {semicolons} from './semicolon-vscode';
 
 export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(vscode.commands.registerCommand('extension.refactorix.ExtractVariable', extractVariable));
-    context.subscriptions.push(vscode.commands.registerCommand('extension.refactorix.SingleStatementBlockToExpression', () => singleStatementBlockToExpression(false)));
-    context.subscriptions.push(vscode.commands.registerCommand('extension.refactorix.SingleStatementBlockToExpressionAll', () => singleStatementBlockToExpression(true)));
-    context.subscriptions.push(vscode.commands.registerCommand('extension.refactorix.ExpressionToBlock', expressionToBlock));
-    context.subscriptions.push(vscode.commands.registerCommand('extension.refactorix.AddSemicolons', () => semicolons(true)));
-    context.subscriptions.push(vscode.commands.registerCommand('extension.refactorix.RemoveSemicolons', () => semicolons(false)));
+    context.subscriptions.push(vscode.commands.registerCommand('extension.refactorix.ArrowFunction.SingleStatementBlockToExpression', () => singleStatementBlockToExpression(false)));
+    context.subscriptions.push(vscode.commands.registerCommand('extension.refactorix.ArrowFunction.SingleStatementBlockToExpressionAll', () => singleStatementBlockToExpression(true)));
+    context.subscriptions.push(vscode.commands.registerCommand('extension.refactorix.ArrowFunction.ExpressionToBlock', expressionToBlock));
+    context.subscriptions.push(vscode.commands.registerCommand('extension.refactorix.Semicolons.Add', () => semicolons(true)));
+    context.subscriptions.push(vscode.commands.registerCommand('extension.refactorix.Semicolons.Remove', () => semicolons(false)));
 }

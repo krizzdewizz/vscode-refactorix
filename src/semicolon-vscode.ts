@@ -25,7 +25,7 @@ export function semicolons(add: boolean) {
         const doIt = add
             ? change => builder.insert(doc.positionAt(change), ';')
             : change => builder.replace(new vs.Range(doc.positionAt(change - 1), doc.positionAt(change)), '');
-        return changes.forEach(doIt);
+        changes.forEach(doIt);
     }).then(ok => {
         if (ok) {
             editor.selection = sel;
