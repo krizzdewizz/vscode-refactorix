@@ -52,8 +52,8 @@ After:
 Place the cursor inside such a function and invoke the command. `ArrowFunction.SingleStatementBlockToExpressionAll` operates on all occurences in the active document.
 
 ### ExtractVariable
-Replaces the selected text with a `const` variable declaration. This command operates on text- rather than AST transformation, so the location of the
-variable declaration may not be appropriate in all the cases.
+Replaces the selected text with a `const` variable declaration. This command operates on text rather than AST, so the location of the
+variable declaration may not be appropriate in all cases.
 
 ## Assign a shortcut
 Insert this into your `keybindings.json`:
