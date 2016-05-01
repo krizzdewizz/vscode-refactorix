@@ -1,6 +1,6 @@
 import * as ts from 'typescript';
 import * as vs from 'vscode';
-import {getIndent} from './refactor';
+import {getIndent, ParseDiagnostics} from './refactor';
 
 export function getTabs(editor: vs.TextEditor, nTabs: number): string {
     return (editor.options.insertSpaces ? ' ' : '\t').repeat(editor.options.tabSize * nTabs);
@@ -17,6 +17,20 @@ export function selectionToSpan(doc: vs.TextDocument, sel: vs.Selection): ts.Tex
 
 export function changeToRange(doc: vs.TextDocument, change: ts.TextChange): vs.Range {
     return new vs.Range(doc.positionAt(change.span.start), doc.positionAt(change.span.start + change.span.length));
+}
+
+export function createSourceFileFromActiveEditor(): { editor: vs.TextEditor, sourceFile: ts.SourceFile } {
+    const editor = vs.window.activeTextEditor;
+    if (!editor) {
+        return undefined;
+    }
+    const doc = editor.document;
+    const sourceFile: ParseDiagnostics = <any>ts.createSourceFile(doc.fileName, doc.getText(), ts.ScriptTarget.ES6, true);
+    if (sourceFile.parseDiagnostics.length > 0) {
+        return undefined;
+    }
+
+    return { editor, sourceFile };
 }
 
 export * from  './refactor';

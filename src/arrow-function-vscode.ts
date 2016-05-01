@@ -1,52 +1,41 @@
 import * as vs from 'vscode';
 import * as ts from 'typescript';
 import {singleStatementBlockToExpressions, expressionToBlock as coreExpressionToBlock} from './arrow-function';
-import {getIndentAtLine, getTabs, ParseDiagnostics, changeToRange, selectionToSpan} from './refactor-vscode';
+import {getIndentAtLine, getTabs, changeToRange, selectionToSpan, createSourceFileFromActiveEditor} from './refactor-vscode';
 
 export function expressionToBlock() {
-    const editor = vs.window.activeTextEditor;
-    if (!editor) {
+    const source = createSourceFileFromActiveEditor();
+    if (!source) {
         return;
     }
-    const doc = editor.document;
-    const sourceFile: ParseDiagnostics = <any>ts.createSourceFile(doc.fileName, doc.getText(), ts.ScriptTarget.ES6, true);
-    if (sourceFile.parseDiagnostics.length > 0) {
-        return;
-    }
+    const editor = source.editor;
+    const {document, selection} = editor;
 
-    const sel = editor.selection;
-
-    const change = coreExpressionToBlock(sourceFile, selectionToSpan(doc, sel), getIndentAtLine(doc, sel.start.line), getTabs(editor, 1));
+    const change = coreExpressionToBlock(source.sourceFile, selectionToSpan(document, selection), getIndentAtLine(document, selection.start.line), getTabs(editor, 1));
     if (!change) {
         return;
     }
 
-    editor.edit(builder => builder.replace(changeToRange(doc, change), change.newText))
+    editor.edit(builder => builder.replace(changeToRange(document, change), change.newText))
         .then(ok => {
             if (ok) {
-                editor.selection = sel;
+                editor.selection = selection;
             }
         });
 }
 
 export function singleStatementBlockToExpression(replaceAll: boolean) {
-    const editor = vs.window.activeTextEditor;
-    if (!editor) {
-        return;
-    }
-
     let overlapRecursionsLeft = 10;
 
     (function doIt() {
-        const doc = editor.document;
-        const sourceFile: ParseDiagnostics = <any>ts.createSourceFile(doc.fileName, doc.getText(), ts.ScriptTarget.ES6, true);
-        if (sourceFile.parseDiagnostics.length > 0) {
+        const source = createSourceFileFromActiveEditor();
+        if (!source) {
             return;
         }
+        const editor = source.editor;
+        const {document, selection} = editor;
 
-        const sel = editor.selection;
-
-        let all = singleStatementBlockToExpressions(sourceFile, replaceAll ? undefined : selectionToSpan(doc, sel));
+        let all = singleStatementBlockToExpressions(source.sourceFile, replaceAll ? undefined : selectionToSpan(document, selection));
         if (all.changes.length === 0) {
             return;
         }
@@ -56,10 +45,10 @@ export function singleStatementBlockToExpression(replaceAll: boolean) {
         }
 
         editor.edit(builder =>
-            all.changes.forEach(change => builder.replace(changeToRange(doc, change), change.newText)))
+            all.changes.forEach(change => builder.replace(changeToRange(document, change), change.newText)))
             .then(ok => {
                 if (ok) {
-                    editor.selection = sel;
+                    editor.selection = selection;
                     if (replaceAll && all.changes.length > 1 && all.overlaps && overlapRecursionsLeft > 0) {
                         doIt();
                         overlapRecursionsLeft--;
