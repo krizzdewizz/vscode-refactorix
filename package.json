@@ -2,7 +2,7 @@
   "name": "vscode-refactorix",
   "description": "TypeScript refactoring tools for Visual Studio Code",
   "version": "0.0.1",
-  "publisher": "christian@o3tt3rli.com",
+  "publisher": "krizzdewizz",
   "engines": {
     "vscode": "^0.10.1"
   },
@@ -50,6 +50,7 @@
   },
   "devDependencies": {
     "tslint": "^3.8.1",
-    "vscode": "0.10.x"
+    "vscode": "0.10.x",
+    "jasmine": "*"
   }
 }

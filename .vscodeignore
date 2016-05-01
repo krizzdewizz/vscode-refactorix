@@ -1,9 +1,12 @@
 .vscode/**
 typings/**
-out/test/**
-test/**
+out/spec/**
+spec/**
+spec-env/**
 src/**
+dist/**
 **/*.map
 .gitignore
 tsconfig.json
+tslint.json
 
