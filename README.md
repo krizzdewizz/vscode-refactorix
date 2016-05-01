@@ -2,7 +2,7 @@
 Refactoring tools for Visual Studio Code.
 
 ## Installation
-Download [Refactorix](https://github.com/krizzdewizz/vscode-refactorix/archive/master.zip) and copy the folder `dist/vscode-refactorix` to your VS Code extension folder:
+Download [Refactorix](https://github.com/krizzdewizz/vscode-refactorix/archive/master.zip) and copy the `dist/vscode-refactorix` folder to your VS Code extension folder:
 
 - Windows: `%USERPROFILE%\.vscode\extensions`
 - Mac/Linux: `$HOME/.vscode/extensions`
