@@ -15,7 +15,7 @@ By pressing `F1` and entering `x:` you should now see Refactorix commands in the
 ## Refactorings
 
 ### Semicolons.Add / Semicolons.Remove
-Adds or removes semicolons for all statements in the active documents.
+Adds or removes semicolons for all statements in the active document.
 
 ### ArrowFunction.ExpressionToBlock
 Encloses an arrow function expression within a block.
@@ -29,7 +29,7 @@ After:
 ```
 () => {
     return 0;
-}
+};
 ```
 
 Place the cursor inside such a function and invoke the command.
