@@ -2,14 +2,9 @@
 Refactoring tools for Visual Studio Code.
 
 ## Installation
-Download [Refactorix](https://github.com/krizzdewizz/vscode-refactorix/archive/master.zip) and copy the `dist/vscode-refactorix` folder to your VS Code extension folder:
+Download [Refactorix](https://github.com/krizzdewizz/vscode-refactorix/raw/master/dist/vscode-refactorix-0.0.1.vsix) and run
 
-- Windows: `%USERPROFILE%\.vscode\extensions`
-- Mac/Linux: `$HOME/.vscode/extensions`
-
-Run `npm install --production` in the `vscode-refactorix` folder you just created.
-
-Restart Visual Studio Code.
+`code vscode-refactorix-0.0.1.vsix`
 
 By pressing `F1` and entering `x:` you should now see Refactorix commands in the drop down.
 
