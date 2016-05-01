@@ -28,8 +28,8 @@
         "title": "x: Arrow function single statement block to expression (all)"
       },
       {
-        "command": "extension.refactorix.ArrowFunctionExpressionToBlock",
-        "title": "x: Expression to block"
+        "command": "extension.refactorix.ArrowFunction.ExpressionToBlock",
+        "title": "x: Arrow function Expression to block"
       },
       {
         "command": "extension.refactorix.Semicolons.Add",
