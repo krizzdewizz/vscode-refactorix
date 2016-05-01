@@ -4,7 +4,7 @@ import {findChildOfKind, contains, childrenOf, hasOverlaps} from './refactor';
 const RETURN = 'return ';
 const ARROW = '=>';
 
-function inRange(node: ts.Node, range?: ts.TextSpan) {
+function inRange(node: ts.Node, range?: ts.TextSpan): boolean {
     if (!range) {
         return true;
     }

@@ -7,16 +7,16 @@ export interface ParseDiagnostics extends ts.SourceFile {
 };
 
 export function getIndent(text: string): string {
-    let s = '';
+    let indent = '';
     for (let i = 0, n = text.length; i < n; i++) {
         const c = text[i];
         if (c === ' ' || c === '\t') {
-            s += c;
+            indent += c;
         } else {
             break;
         }
     }
-    return s;
+    return indent;
 }
 
 export function findChildOfKind(node: ts.Node, kind: ts.SyntaxKind): ts.Node {
