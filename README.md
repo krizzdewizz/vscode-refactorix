@@ -7,7 +7,7 @@ Copy the folder `dist/vscode-refactorix` folder to your VS Code extension folder
 - Windows: `%USERPROFILE%\.vscode\extensions`
 - Mac/Linux: `$HOME/.vscode/extensions`
 
-Run `npm install` in the `vscode-refactorix` folder you just created.
+Run `npm install --production` in the `vscode-refactorix` folder you just created.
 
 Restart Visual Studio Code.
 
