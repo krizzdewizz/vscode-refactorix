@@ -41,7 +41,7 @@ Before:
 ```
 () => {
     return 0;
-}
+};
 ```
 
 After:
