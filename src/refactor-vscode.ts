@@ -2,7 +2,7 @@ import * as vs from 'vscode';
 import {getIndent} from './refactor';
 
 export function getTabs(editor: vs.TextEditor, nTabs: number): string {
-    return (editor.options.insertSpaces ? ' ' : '\t').repeat(editor.options.tabSize + nTabs);
+    return (editor.options.insertSpaces ? ' ' : '\t').repeat(editor.options.tabSize * nTabs);
 }
 
 export function getIndentAtLine(doc: vs.TextDocument, line: number): string {
