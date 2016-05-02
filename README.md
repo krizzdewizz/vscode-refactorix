@@ -49,7 +49,9 @@ After:
 () => 0;
 ```
 
-Place the cursor inside such a function and invoke the command. `ArrowFunction.SingleStatementBlockToExpressionAll` operates on all occurences in the active document.
+Place the cursor inside such a function and invoke the command.
+
+`ArrowFunction.SingleStatementBlockToExpressionAll` operates on all occurences in the active document.
 
 ### ExtractVariable
 Replaces the selected text with a `const` variable declaration. This command operates on text rather than AST, so the location of the
