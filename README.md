@@ -93,3 +93,6 @@ Insert this into your `keybindings.json`:
 ## Build
 - run `npm run compile`.
 
+## Package
+- run `vsce package` and move the created `.vsix` to the `dist` folder. If a new version is published, don't forget to update this documentation.
+
