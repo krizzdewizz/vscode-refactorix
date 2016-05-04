@@ -3,17 +3,23 @@ import * as ts from 'typescript';
 import {singleStatementBlockToExpressions, expressionToBlock as coreExpressionToBlock} from './arrow-function';
 import {getIndentAtLine, getTabs, changeToRange, selectionToSpan, createSourceFileFromActiveEditor} from './refactor-vscode';
 
-export function expressionToBlock() {
+export function toggleSingleStatementBlockExpression() {
+    if (!expressionToBlock()) {
+        singleStatementBlockToExpression(false);
+    }
+}
+
+export function expressionToBlock(): boolean {
     const source = createSourceFileFromActiveEditor();
     if (!source) {
-        return;
+        return false;
     }
     const editor = source.editor;
     const {document, selection} = editor;
 
     const change = coreExpressionToBlock(source.sourceFile, selectionToSpan(document, selection), getIndentAtLine(document, selection.start.line), getTabs(editor, 1));
     if (!change) {
-        return;
+        return false;
     }
 
     editor.edit(builder => builder.replace(changeToRange(document, change), change.newText))
@@ -22,6 +28,8 @@ export function expressionToBlock() {
                 editor.selection = selection;
             }
         });
+
+    return true;
 }
 
 export function singleStatementBlockToExpression(replaceAll: boolean) {

@@ -71,13 +71,8 @@ Insert this into your `keybindings.json`:
     "when": "editorTextFocus"
 },
 {
-    "key": "ctrl+[",
-    "command": "extension.refactorix.ArrowFunction.ExpressionToBlock",
-    "when": "editorTextFocus"
-},
-{
     "key": "ctrl+]",
-    "command": "extension.refactorix.ArrowFunction.SingleStatementBlockToExpression",
+    "command": "extension.refactorix.ArrowFunction.ToggleSingleStatementBlockExpression",
     "when": "editorTextFocus"
 },
 {

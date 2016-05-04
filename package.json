@@ -1,7 +1,7 @@
 {
   "name": "vscode-refactorix",
   "description": "TypeScript refactoring tools for Visual Studio Code",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "krizzdewizz",
   "engines": {
     "vscode": "^0.10.1"
@@ -20,16 +20,12 @@
         "title": "x: Extract variable"
       },
       {
-        "command": "extension.refactorix.ArrowFunction.SingleStatementBlockToExpression",
-        "title": "x: Arrow function single statement block to expression"
+        "command": "extension.refactorix.ArrowFunction.ToggleSingleStatementBlockExpression",
+        "title": "x: Arrow function toggle single statement block <-> expression"
       },
       {
         "command": "extension.refactorix.ArrowFunction.SingleStatementBlockToExpressionAll",
-        "title": "x: Arrow function single statement block to expression (all)"
-      },
-      {
-        "command": "extension.refactorix.ArrowFunction.ExpressionToBlock",
-        "title": "x: Arrow function expression to block"
+        "title": "x: Arrow function all single statement blocks to expression"
       },
       {
         "command": "extension.refactorix.Semicolons.Add",
