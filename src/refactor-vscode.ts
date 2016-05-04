@@ -25,11 +25,7 @@ export function createSourceFileFromActiveEditor(): { editor: vs.TextEditor, sou
         return undefined;
     }
     const doc = editor.document;
-    const sourceFile: ParseDiagnostics = <any>ts.createSourceFile(doc.fileName, doc.getText(), ts.ScriptTarget.ES6, true);
-    if (sourceFile.parseDiagnostics.length > 0) {
-        return undefined;
-    }
-
+    const sourceFile = ts.createSourceFile(doc.fileName, doc.getText(), ts.ScriptTarget.ES6, true);
     return { editor, sourceFile };
 }
 
