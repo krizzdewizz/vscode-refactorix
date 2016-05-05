@@ -1,5 +1,5 @@
 {
-  "name": "vscode-refactorix",
+  "name": "refactorix",
   "description": "TypeScript refactoring tools for Visual Studio Code",
   "version": "0.0.2",
   "publisher": "krizzdewizz",
@@ -39,7 +39,7 @@
   },
   "scripts": {
     "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
-    "compile": "node ./node_modules/vscode/bin/compile --watch -p ./"
+    "compile": "node ./node_modules/vscode/bin/compile -p ./"
   },
   "dependencies": {
     "typescript": "*"

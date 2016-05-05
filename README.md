@@ -2,9 +2,9 @@
 TypeScript refactoring tools for Visual Studio Code.
 
 ## Installation
-Download [Refactorix](https://github.com/krizzdewizz/vscode-refactorix/raw/master/dist/vscode-refactorix-0.0.2.vsix) and run
+Download [Refactorix](https://github.com/krizzdewizz/vscode-refactorix/raw/master/dist/refactorix-0.0.2.vsix) and run
 
-`code vscode-refactorix-0.0.2.vsix`
+`code refactorix-0.0.2.vsix`
 
 Restart Visual Studio Code.
 
