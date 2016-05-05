@@ -1,7 +1,7 @@
 {
   "name": "refactorix",
   "description": "TypeScript refactoring tools for Visual Studio Code",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "publisher": "krizzdewizz",
   "engines": {
     "vscode": "^0.10.1"
@@ -9,6 +9,15 @@
   "categories": [
     "Other"
   ],
+  "icon": "doc/logo.png",
+  "bugs": {
+    "url": "https://github.com/krizzdewizz/vscode-refactorix/issues"
+  },
+  "homepage": "https://github.com/krizzdewizz/vscode-refactorix",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/krizzdewizz/vscode-refactorix.git"
+  },
   "activationEvents": [
     "onLanguage:typescript"
   ],

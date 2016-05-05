@@ -1,14 +1,7 @@
 # vscode-refactorix
 TypeScript refactoring tools for Visual Studio Code.
 
-## Installation
-Download [Refactorix](https://github.com/krizzdewizz/vscode-refactorix/raw/master/dist/refactorix-0.0.2.vsix) and run
-
-`code refactorix-0.0.2.vsix`
-
-Restart Visual Studio Code.
-
-By pressing `F1` and entering `x:` you should now see Refactorix commands in the drop down:
+After installing, pressing `F1` and entering `x:` you should see the Refactorix commands in the drop down:
 
 ![Commands](doc/commands.png "Refactorix commands")
 
@@ -78,5 +71,5 @@ Insert this into your `keybindings.json`:
 - run `npm run compile`.
 
 ## Package
-- run `vsce package` and move the created `.vsix` to the `dist` folder. If a new version is published, don't forget to update this documentation.
+- run `vsce package`.
 
