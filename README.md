@@ -31,8 +31,7 @@ Place the cursor inside such a function and invoke the command.
 Converts all arrow function single statement blocks to expression.
 
 ### Extract variable
-Replaces the selected text with a `const` variable declaration. This command operates on text rather than AST, so the location of the
-variable declaration may not be appropriate in all cases.
+Replaces the selected text with a `const` variable declaration. This command operates on text rather than AST, so the location of the variable declaration may not be appropriate in all cases.
 
 ## Assign a shortcut
 Insert this into your `keybindings.json`:
