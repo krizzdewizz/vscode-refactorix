@@ -43,6 +43,10 @@
       {
         "command": "extension.refactorix.Semicolons.Remove",
         "title": "x: Remove semicolons"
+      },
+      {
+        "command": "extension.refactorix.Property.ToGetterSetter",
+        "title": "x: Property to getter/setter"
       }
     ]
   },
