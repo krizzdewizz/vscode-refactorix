@@ -114,6 +114,16 @@ Insert this into your `keybindings.json`:
     "key": "alt+shift+l",
     "command": "extension.refactorix.ExtractVariable"
 },
+{
+    "key": "shift+alt+x i",
+    "command": "extension.refactorix.String.Interpolate",
+    "when": "editorTextFocus"
+},
+{
+    "key": "ctrl+oem_102",
+    "command": "extension.refactorix.Property.ToGetterSetter",
+    "when": "editorTextFocus"
+},
 ```
 
 ## Release Info
