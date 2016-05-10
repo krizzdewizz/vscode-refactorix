@@ -1,7 +1,7 @@
 {
   "name": "refactorix",
   "description": "TypeScript refactoring tools for Visual Studio Code",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "publisher": "krizzdewizz",
   "engines": {
     "vscode": "^0.10.1"
