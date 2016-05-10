@@ -120,7 +120,7 @@ Insert this into your `keybindings.json`:
     "when": "editorTextFocus"
 },
 {
-    "key": "ctrl+oem_102",
+    "key": "shift+alt+x g",
     "command": "extension.refactorix.Property.ToGetterSetter",
     "when": "editorTextFocus"
 },
