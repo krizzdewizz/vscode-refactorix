@@ -1,5 +1,5 @@
 namespace property {
     class Color {
-        rgb: number;
+        rgb: string;
     }
 }

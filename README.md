@@ -7,6 +7,44 @@ After installing, pressing `F1` and entering `x:` you should see the Refactorix 
 
 ## Refactorings
 
+### Property to getter/setter
+Converts a property to getter/setter.
+
+Before:
+```
+class Color {
+    rgb: string;
+}
+```
+
+After:
+```
+class Color {
+    private _rgb: string;
+    get rgb(): string {
+        return this._rgb;
+    }
+    set rgb(value: string) {
+        this._rgb = value;
+    }
+}
+```
+
+Place the cursor on a property and invoke the command.
+
+#### Settings
+Add this configuration block to the VS Code 'User' or 'Workspace' settings:
+```
+"extension.refactorix.Property.ToGetterSetter": {
+    "singleLine": false,
+     "prefix": "_"
+}
+```
+
+`singleLine` - if `true`, getter and setter will be written on a single line.
+
+`prefix` - Prefix for the property.
+
 ### Add/remove semicolons
 Adds or removes semicolons for all statements in the active document.
 

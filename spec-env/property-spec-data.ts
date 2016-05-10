@@ -1,6 +1,11 @@
 namespace property {
-
     class Color {
-        rgb: number = 99;
+        private _rgb: string;
+        get rgb(): string {
+            return this._rgb;
+        }
+        set rgb(value: string) {
+            this._rgb = value;
+        }
     }
 }
