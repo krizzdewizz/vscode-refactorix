@@ -1,5 +1,20 @@
 function missingSemicolons() {
 
+    interface Color {
+        rgb: string
+        foo()
+    }
+
+    class X {
+        foo
+
+        xxxx = () => 0
+    }
+
+    do {
+        // something
+    } while ('')
+
     let editor: any
     let all: any
 

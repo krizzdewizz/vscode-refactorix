@@ -13,7 +13,7 @@ describe('semicolon-spec-data.ts', () => {
         const changes = semicolons(sourceFile, true);
 
         it('should find changes', () => {
-            expect(changes.length).toBe(10);
+            expect(changes.length).toBe(15);
         });
     });
 });
