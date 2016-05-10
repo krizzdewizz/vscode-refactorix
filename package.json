@@ -47,6 +47,10 @@
       {
         "command": "extension.refactorix.Property.ToGetterSetter",
         "title": "x: Property to getter/setter"
+      },
+      {
+        "command": "extension.refactorix.String.Interpolate",
+        "title": "x: Interpolate string part"
       }
     ]
   },

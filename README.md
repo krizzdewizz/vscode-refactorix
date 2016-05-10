@@ -7,6 +7,22 @@ After installing, pressing `F1` and entering `x:` you should see the Refactorix 
 
 ## Refactorings
 
+### Interpolate string part
+
+Surrounds the selected part of a string literal with `${}` and converts the literal to backticks as necessary.
+
+Before - assume you have `refactorix` selected:
+```
+'my name is refactorix.'
+```
+
+After - note the backticks:
+```
+`my name is ${refactorix}.`
+```
+
+Select a part of a string literal and invoke the command. The selection may be empty in which case `${}` is inserted.
+
 ### Property to getter/setter
 Converts a property to getter/setter.
 
@@ -100,13 +116,23 @@ Insert this into your `keybindings.json`:
 },
 ```
 
+## Release Info
+
+v0.1.0
+- Initial release
+
+v0.2.0
+- Semicolons are now added/removed in all the places where tslint's semicolon rule reports a problem
+- New refactoring 'Property to getter/setter'
+- New refactoring 'Interpolate string part'
+
 ## Development setup
-- run `npm install` inside the project folder.
-- open VS Code on the project folder.
+- run `npm install` inside the project folder
+- open VS Code on the project folder
 
 ## Build
-- run `npm run compile`.
+- run `npm run compile`
 
 ## Package
-- run `vsce package`.
+- run `vsce package`
 

@@ -7,6 +7,7 @@ import {toggleSingleStatementBlockExpression, singleStatementBlockToExpression, 
 import {extractVariable} from './extract-variable';
 import {semicolons} from './semicolon-vscode';
 import {toGetterSetter} from './property-vscode';
+import {interpolate} from './stringg-vscode';
 
 export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(vscode.commands.registerCommand('extension.refactorix.ExtractVariable', extractVariable));
@@ -16,4 +17,5 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(vscode.commands.registerCommand('extension.refactorix.Semicolons.Add', () => semicolons(true)));
     context.subscriptions.push(vscode.commands.registerCommand('extension.refactorix.Semicolons.Remove', () => semicolons(false)));
     context.subscriptions.push(vscode.commands.registerCommand('extension.refactorix.Property.ToGetterSetter', toGetterSetter));
+    context.subscriptions.push(vscode.commands.registerCommand('extension.refactorix.String.Interpolate', interpolate));
 }
