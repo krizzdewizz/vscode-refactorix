@@ -1,7 +1,7 @@
 import * as vs from 'vscode';
 import * as ts from 'typescript';
 import {toGetterSetter as coreToGetterSetter, GetterSetterOptions} from './property';
-import {getIndentAtLine, getTabs, changeToRange, selectionToSpan, createSourceFileFromActiveEditor} from './refactor-vscode';
+import {getIndentAtLine, getTabs, changeToRange, createSourceFileFromActiveEditor} from './refactor-vscode';
 
 export function toGetterSetter() {
     const source = createSourceFileFromActiveEditor();
