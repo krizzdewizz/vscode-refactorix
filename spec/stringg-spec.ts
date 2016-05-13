@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as ts from 'typescript';
-import {interpolate} from '../src/stringg';
+
+import {interpolate} from '../src/core';
 
 describe('stringg-spec-data.ts', () => {
 

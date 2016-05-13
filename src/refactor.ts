@@ -1,47 +1,31 @@
 import * as ts from 'typescript';
+import * as vs from 'vscode';
 
-export interface ParseDiagnostics extends ts.SourceFile {
-    parseDiagnostics: {
-        messageText: string;
-    }[];
-};
+import {getIndent, ParseDiagnostics} from './core';
 
-export function getIndent(text: string): string {
-    let indent = '';
-    for (let i = 0, n = text.length; i < n; i++) {
-        const c = text[i];
-        if (c === ' ' || c === '\t') {
-            indent += c;
-        } else {
-            break;
-        }
+export function getTabs(editor: vs.TextEditor, nTabs: number): string {
+    return (editor.options.insertSpaces ? ' ' : '\t').repeat(editor.options.tabSize * nTabs);
+}
+
+export function getIndentAtLine(doc: vs.TextDocument, line: number): string {
+    const lineText = doc.getText(new vs.Range(new vs.Position(line, 0), new vs.Position(line, 30)));
+    return getIndent(lineText);
+}
+
+export function selectionToSpan(doc: vs.TextDocument, sel: vs.Selection): ts.TextSpan {
+    return { start: doc.offsetAt(sel.start), length: doc.offsetAt(sel.end) - doc.offsetAt(sel.start) };
+}
+
+export function changeToRange(doc: vs.TextDocument, change: ts.TextChange): vs.Range {
+    return new vs.Range(doc.positionAt(change.span.start), doc.positionAt(change.span.start + change.span.length));
+}
+
+export function createSourceFileFromActiveEditor(): { editor: vs.TextEditor, sourceFile: ts.SourceFile } {
+    const editor = vs.window.activeTextEditor;
+    if (!editor) {
+        return undefined;
     }
-    return indent;
-}
-
-export function findChildOfKind(node: ts.Node, kind: ts.SyntaxKind): ts.Node {
-    return node.getChildren().find(it => it.kind === kind);
-}
-
-export function childrenOf(node: ts.Node): ts.Node[] {
-    const all = [];
-    ts.forEachChild(node, it => all.push(it));
-    return all;
-}
-
-export function contains(span: ts.TextSpan, pos: number): boolean {
-    return pos >= span.start && pos <= span.start + span.length;
-}
-
-export function hasOverlaps(change: ts.TextChange, all: ts.TextChange[]): boolean {
-    const start = change.span.start;
-    const end = start + change.span.length;
-    return all.map(it => it.span).some(it => contains(it, start) || contains(it, end));
-}
-
-export function inRange(node: ts.Node, range?: ts.TextSpan): boolean {
-    if (!range) {
-        return true;
-    }
-    return node.getStart() < range.start && node.getEnd() > range.start + range.length;
+    const doc = editor.document;
+    const sourceFile = ts.createSourceFile(doc.fileName, doc.getText(), ts.ScriptTarget.ES6, true);
+    return { editor, sourceFile };
 }

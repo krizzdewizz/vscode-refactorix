@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as ts from 'typescript';
-import {singleStatementBlockToExpressions} from '../src/arrow-function';
-import {ParseDiagnostics} from '../src/refactor';
+
+import {ParseDiagnostics, singleStatementBlockToExpressions} from '../src/core';
 
 export function writeChanges(sourceFile: ts.SourceFile, changes: ts.TextChange[]): string {
     let result = sourceFile.getFullText();

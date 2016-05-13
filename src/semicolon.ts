@@ -1,42 +1,31 @@
+import * as vs from 'vscode';
 import * as ts from 'typescript';
 
-export function semicolons(sourceFile: ts.SourceFile, add: boolean): number[] {
-    const changes: number[] = [];
-    const text = sourceFile.getFullText();
-    visitor(sourceFile);
-    return changes;
+import {semicolons as coreSemicolons} from './core';
+import {createSourceFileFromActiveEditor, changeToRange} from './refactor';
 
-    function checkSemi(node: ts.Node) {
-        const last = text.substr(node.getEnd() - 1, 1);
-        const semi = last === ';';
-        if (add && !semi || !add && semi) {
-            changes.push(node.getEnd());
-        }
+export function semicolons(add: boolean) {
+    const source = createSourceFileFromActiveEditor();
+    if (!source) {
+        return;
     }
 
-    function visitor(node: ts.Node) {
+    const editor = source.editor;
+    const {document, selection} = editor;
 
-        switch (node.kind) {
-            case ts.SyntaxKind.VariableStatement:
-            case ts.SyntaxKind.ExpressionStatement:
-            case ts.SyntaxKind.ReturnStatement:
-            case ts.SyntaxKind.BreakStatement:
-            case ts.SyntaxKind.ContinueStatement:
-            case ts.SyntaxKind.ThrowStatement:
-            case ts.SyntaxKind.ImportDeclaration:
-            case ts.SyntaxKind.ImportEqualsDeclaration:
-            case ts.SyntaxKind.DoStatement:
-            case ts.SyntaxKind.DebuggerStatement:
-            case ts.SyntaxKind.ExportAssignment:
-            case ts.SyntaxKind.PropertyDeclaration:
-                checkSemi(node);
-                break;
-            case ts.SyntaxKind.InterfaceDeclaration:
-                (node as ts.InterfaceDeclaration).members.forEach(checkSemi);
-                break;
-        }
-
-        ts.forEachChild(node, visitor);
+    const changes = coreSemicolons(source.sourceFile, add);
+    if (changes.length === 0) {
+        return;
     }
+
+    editor.edit(builder => {
+        const doIt = add
+            ? change => builder.insert(document.positionAt(change), ';')
+            : change => builder.replace(new vs.Range(document.positionAt(change - 1), document.positionAt(change)), '');
+        changes.forEach(doIt);
+    }).then(ok => {
+        if (ok) {
+            editor.selection = selection;
+        }
+    });
 }
-

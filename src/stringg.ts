@@ -1,40 +1,29 @@
+import * as vs from 'vscode';
 import * as ts from 'typescript';
-import {findChildOfKind, childrenOf} from './refactor';
 
-const PREFIX = '${';
-const SUFFIX = '}';
-const BACKTICK = '`';
+import {INTERPOLATE_PREFIX_LEN, interpolate as coreInterpolate} from './core';
+import {changeToRange, selectionToSpan, createSourceFileFromActiveEditor} from './refactor';
 
-export const INTERPOLATE_PREFIX_LEN = PREFIX.length;
-
-export function interpolate(sourceFile: ts.SourceFile, range: ts.TextSpan): ts.TextChange[] {
-    const text = sourceFile.getFullText();
-    let changes: ts.TextChange[];
-    visitor(sourceFile);
-    return changes;
-
-    function visitor(node: ts.Node) {
-        if (node.kind === ts.SyntaxKind.StringLiteral || node.kind === ts.SyntaxKind.FirstTemplateToken) {
-
-            const span = { start: node.getStart(), length: node.getEnd() - node.getStart() };
-            if (ts.textSpanContainsTextSpan(span, range)) {
-                const rangeText = text.substr(range.start, range.length);
-                const newText = PREFIX + rangeText + SUFFIX;
-
-                changes = [{ span: range, newText }];
-
-                if (node.kind === ts.SyntaxKind.StringLiteral) {
-                    changes = [
-                        ...changes,
-                        { span: { start: node.getStart(), length: BACKTICK.length }, newText: BACKTICK },
-                        { span: { start: node.getEnd() - BACKTICK.length, length: BACKTICK.length }, newText: BACKTICK }
-                    ];
-                }
-            }
-        }
-
-        if (!changes) {
-            ts.forEachChild(node, visitor);
-        }
+export function interpolate() {
+    const source = createSourceFileFromActiveEditor();
+    if (!source) {
+        return;
     }
+    const editor = source.editor;
+    const {document, selection} = editor;
+
+    const changes = coreInterpolate(source.sourceFile, selectionToSpan(document, selection));
+    if (!changes) {
+        return;
+    }
+
+    editor.edit(builder =>
+        changes.forEach(change => builder.replace(changeToRange(document, change), change.newText)))
+        .then(ok => {
+            if (ok) {
+                editor.selection = new vs.Selection(
+                    new vs.Position(selection.start.line, selection.start.character + INTERPOLATE_PREFIX_LEN),
+                    new vs.Position(selection.start.line, selection.end.character + INTERPOLATE_PREFIX_LEN));
+            }
+        });
 }

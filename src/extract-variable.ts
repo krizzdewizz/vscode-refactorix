@@ -1,5 +1,6 @@
 import * as vs from 'vscode';
-import {getIndentAtLine} from './refactor-vscode';
+
+import {getIndentAtLine} from './refactor';
 
 export function extractVariable(): void {
     const editor = vs.window.activeTextEditor;

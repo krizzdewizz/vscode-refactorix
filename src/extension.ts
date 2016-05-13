@@ -3,11 +3,12 @@
  */
 
 import * as vscode from 'vscode';
-import {toggleSingleStatementBlockExpression, singleStatementBlockToExpression, expressionToBlock} from './arrow-function-vscode';
-import {extractVariable} from './extract-variable';
-import {semicolons} from './semicolon-vscode';
-import {toGetterSetter} from './property-vscode';
-import {interpolate} from './stringg-vscode';
+
+import { toggleSingleStatementBlockExpression, singleStatementBlockToExpression, expressionToBlock } from './arrow-function';
+import { extractVariable } from './extract-variable';
+import { semicolons } from './semicolon';
+import { toGetterSetter } from './property';
+import { interpolate } from './stringg';
 
 export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(vscode.commands.registerCommand('extension.refactorix.ExtractVariable', extractVariable));

@@ -1,0 +1,14 @@
+[
+    {
+        "name": "Color",
+        "documentation": "",
+        "type": "typeof Color",
+        "constructors": [
+            {
+                "parameters": [],
+                "returnType": "Color",
+                "documentation": ""
+            }
+        ]
+    }
+]

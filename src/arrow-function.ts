@@ -1,67 +1,68 @@
+import * as vs from 'vscode';
 import * as ts from 'typescript';
-import {findChildOfKind, contains, childrenOf, hasOverlaps, inRange} from './refactor';
 
-const RETURN = 'return ';
-const ARROW = '=>';
+import { singleStatementBlockToExpressions, expressionToBlock as coreExpressionToBlock } from './core';
+import { getIndentAtLine, getTabs, changeToRange, selectionToSpan, createSourceFileFromActiveEditor } from './refactor';
 
-export function expressionToBlock(sourceFile: ts.SourceFile, range: ts.TextSpan, indent: string, tab: string): ts.TextChange {
-    const text = sourceFile.getFullText();
-    let change: ts.TextChange;
-    visitor(sourceFile);
-    return change;
-
-    function visitor(node: ts.Node) {
-        if (node.kind === ts.SyntaxKind.ArrowFunction) {
-            if (!findChildOfKind(node, ts.SyntaxKind.Block) && inRange(node, range)) {
-                const nodeText = text.substring(node.getStart(), node.getEnd());
-                const pos = nodeText.indexOf(ARROW);
-                const expr = nodeText.substring(pos + ARROW.length).trim();
-                const newText = nodeText.substring(0, pos) + ARROW + ' {\n' + indent + tab + 'return ' + expr + ';\n' + indent + '}';
-                change = { span: { start: node.getStart(), length: node.getEnd() - node.getStart() }, newText };
-            }
-        }
-
-        if (!change) {
-            ts.forEachChild(node, visitor);
-        }
+export function toggleSingleStatementBlockExpression() {
+    if (!expressionToBlock()) {
+        singleStatementBlockToExpression(false);
     }
 }
 
-export function singleStatementBlockToExpressions(sourceFile: ts.SourceFile, range?: ts.TextSpan): { changes: ts.TextChange[], overlaps: boolean } {
-    const text = sourceFile.getFullText();
-    const changes: ts.TextChange[] = [];
-    let overlaps = false;
-    visitor(sourceFile);
-    return { changes, overlaps };
+export function expressionToBlock(): boolean {
+    const source = createSourceFileFromActiveEditor();
+    if (!source) {
+        return false;
+    }
+    const editor = source.editor;
+    const {document, selection} = editor;
 
-    function visitor(node: ts.Node) {
-        if (node.kind === ts.SyntaxKind.ArrowFunction) {
-            const block = <ts.Block>findChildOfKind(node, ts.SyntaxKind.Block);
-            if (block) {
-                const children = childrenOf(block);
-                if (children.length === 1) {
-                    const first = children[0];
-                    if ((first.kind === ts.SyntaxKind.ReturnStatement || first.kind === ts.SyntaxKind.ExpressionStatement) && inRange(node, range)) {
-                        let newText = text.substring(first.getStart(), first.getEnd());
-                        if (newText.endsWith(';')) {
-                            newText = newText.substring(0, newText.length - 1);
-                        }
-                        if (newText.startsWith(RETURN)) {
-                            newText = newText.substring(RETURN.length);
-                        }
+    const change = coreExpressionToBlock(source.sourceFile, selectionToSpan(document, selection), getIndentAtLine(document, selection.start.line), getTabs(editor, 1));
+    if (!change) {
+        return false;
+    }
 
-                        const change = { span: { start: block.getStart(), length: block.getEnd() - block.getStart() }, newText };
-                        if (hasOverlaps(change, changes)) {
-                            overlaps = true;
-                        } else {
-                            changes.push(change);
-                        }
+    editor.edit(builder => builder.replace(changeToRange(document, change), change.newText))
+        .then(ok => {
+            if (ok) {
+                editor.selection = selection;
+            }
+        });
+
+    return true;
+}
+
+export function singleStatementBlockToExpression(replaceAll: boolean) {
+    let overlapRecursionsLeft = 10;
+
+    (function doIt() {
+        const source = createSourceFileFromActiveEditor();
+        if (!source) {
+            return;
+        }
+        const editor = source.editor;
+        const {document, selection} = editor;
+
+        let all = singleStatementBlockToExpressions(source.sourceFile, replaceAll ? undefined : selectionToSpan(document, selection));
+        if (all.changes.length === 0) {
+            return;
+        }
+
+        if (!replaceAll) {
+            all.changes = [all.changes[0]];
+        }
+
+        editor.edit(builder =>
+            all.changes.forEach(change => builder.replace(changeToRange(document, change), change.newText)))
+            .then(ok => {
+                if (ok) {
+                    editor.selection = selection;
+                    if (replaceAll && all.changes.length > 1 && all.overlaps && overlapRecursionsLeft > 0) {
+                        doIt();
+                        overlapRecursionsLeft--;
                     }
                 }
-            }
-        }
-
-        ts.forEachChild(node, visitor);
-    }
+            });
+    })();
 }
-

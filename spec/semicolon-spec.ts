@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as ts from 'typescript';
-import {semicolons} from '../src/semicolon';
+
+import {semicolons} from '../src/core';
 
 describe('semicolon-spec-data.ts', () => {
 

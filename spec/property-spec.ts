@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as ts from 'typescript';
-import {toGetterSetter} from '../src/property';
+
+import {toGetterSetter} from '../src/core';
 
 describe('property-spec-data.ts', () => {
 
