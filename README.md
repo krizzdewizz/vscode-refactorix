@@ -128,13 +128,13 @@ Insert this into your `keybindings.json`:
 
 ## Release Info
 
-v0.1.0
-- Initial release
-
 v0.2.0
 - Semicolons are now added/removed in all the places where tslint's semicolon rule reports a problem
 - New refactoring 'Property to getter/setter'
 - New refactoring 'Interpolate string part'
+
+v0.1.0
+- Initial release
 
 ## Development setup
 - run `npm install` inside the project folder
