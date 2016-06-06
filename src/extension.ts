@@ -9,6 +9,7 @@ import { extractVariable } from './extract-variable';
 import { semicolons } from './semicolon';
 import { toGetterSetter } from './property';
 import { interpolate } from './stringg';
+import { toggle } from './access';
 
 export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(vscode.commands.registerCommand('extension.refactorix.ExtractVariable', extractVariable));
@@ -19,4 +20,5 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(vscode.commands.registerCommand('extension.refactorix.Semicolons.Remove', () => semicolons(false)));
     context.subscriptions.push(vscode.commands.registerCommand('extension.refactorix.Property.ToGetterSetter', toGetterSetter));
     context.subscriptions.push(vscode.commands.registerCommand('extension.refactorix.String.Interpolate', interpolate));
+    context.subscriptions.push(vscode.commands.registerCommand('extension.refactorix.Access.toggle', toggle));
 }
