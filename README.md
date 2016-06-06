@@ -18,11 +18,11 @@ When placed on a get or set accessor, the modifier of the other accessor is togg
 Add this configuration block to the VS Code 'User' or 'Workspace' settings:
 ```
 "extension.refactorix.Access.toggle": {
-    "includePublic": true
+    "preferPublic": true
 }
 ```
 
-`includePublic` - if `true`, the `public` modifier will be included for all elements. If `false`, only for constructor parameters.
+`preferPublic` - if `true`, the `public` modifier will be used instead of no modifier. Does not affect constructor parameters.
 
 ### Interpolate string part
 

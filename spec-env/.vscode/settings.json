@@ -5,6 +5,6 @@
         "prefix": "qqq"
     },
     "extension.refactorix.Access.toggle": {
-        "includePublic": true
+        "preferPublic": false
     }
 }
