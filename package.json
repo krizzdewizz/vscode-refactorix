@@ -51,6 +51,52 @@
       {
         "command": "extension.refactorix.String.Interpolate",
         "title": "x: Interpolate string part"
+      },
+      {
+        "command": "extension.refactorix.Access.toggle",
+        "title": "x: Toggle access modifier"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "extension.refactorix.Semicolons.Add",
+        "key": "ctrl+;",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "extension.refactorix.Semicolons.Remove",
+        "key": "ctrl+shift+;",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "extension.refactorix.ArrowFunction.ToggleSingleStatementBlockExpression",
+        "key": "ctrl+]",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "extension.refactorix.ArrowFunction.SingleStatementBlockToExpressionAll",
+        "key": "ctrl+shift+]",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "extension.refactorix.ExtractVariable",
+        "key": "alt+shift+l",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "extension.refactorix.String.Interpolate",
+        "key": "shift+alt+x i",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "extension.refactorix.Property.ToGetterSetter",
+        "key": "shift+alt+x g",
+        "when": "editorTextFocus"
+      },
+      {
+        "key": "alt+shift+q",
+        "command": "extension.refactorix.Access.toggle",
+        "when": "editorTextFocus"
       }
     ]
   },

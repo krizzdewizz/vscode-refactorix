@@ -1,7 +1,7 @@
 import * as vs from 'vscode';
 import * as ts from 'typescript';
 
-import { toggle as coreToggle } from './core';
+import { toggle as coreToggle, AccessOptions } from './core';
 import { getIndentAtLine, getTabs, changeToRange, createSourceFileFromActiveEditor } from './refactor';
 
 export function toggle() {
@@ -12,15 +12,15 @@ export function toggle() {
     const editor = source.editor;
     const {document, selection} = editor;
 
-    // const options: GetterSetterOptions = vs.workspace.getConfiguration('extension.refactorix.Property.ToGetterSetter');
+    const options: AccessOptions = vs.workspace.getConfiguration('extension.refactorix.Access.toggle');
 
-    const change = coreToggle(source.sourceFile, document.offsetAt(selection.start));
-    if (!change) {
+    const changes = coreToggle(source.sourceFile, document.offsetAt(selection.start));
+    if (!changes) {
         return;
     }
 
     editor.edit(builder =>
-        builder.replace(changeToRange(document, change), change.newText))
+        changes.forEach(change => builder.replace(changeToRange(document, change), change.newText)))
         .then(ok => {
             if (ok) {
                 editor.selection = selection;

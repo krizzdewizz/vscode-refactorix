@@ -1,49 +1,84 @@
 import * as ts from 'typescript';
 
-const MODS = ['private ', 'protected ', 'public '];
+const MODS_NO_PUBLIC = ['private ', 'protected '];
+const ALL_MODS = [...MODS_NO_PUBLIC, 'public '];
 
-export function toggle(sourceFile: ts.SourceFile, pos: number): ts.TextChange {
+function findOtherAccessor(node: ts.AccessorDeclaration): ts.Node {
+    const parent = node.parent as ts.ClassDeclaration;
+    const otherKind = node.kind === ts.SyntaxKind.SetAccessor ? ts.SyntaxKind.GetAccessor : ts.SyntaxKind.SetAccessor;
+    const propName = node.name.getText();
+    return parent.members.find(it => it.kind === otherKind && it.name.getText() === propName);
+}
+
+export interface AccessOptions {
+    includePublic?: boolean;
+}
+
+export function toggle(sourceFile: ts.SourceFile, pos: number, options?: AccessOptions): ts.TextChange[] {
     const text = sourceFile.getFullText();
-    let change: ts.TextChange;
+    const includePublic = options && options.includePublic;
+    let changes: ts.TextChange[];
     visitor(sourceFile);
-    return change;
+    return changes;
 
     function posInside(node: ts.Node): boolean {
         return ts.textSpanContainsPosition({ start: node.getStart(), length: node.getEnd() - node.getStart() }, pos);
     }
 
-    function findNode(node: ts.Node): ts.Node {
-        if (node.kind === ts.SyntaxKind.PropertyDeclaration || node.kind === ts.SyntaxKind.MethodDeclaration) {
-            return posInside(node) ? node : undefined;
+    function findNodes(node: ts.Node): ts.Node[] {
+        if (
+            node.kind === ts.SyntaxKind.PropertyDeclaration ||
+            node.kind === ts.SyntaxKind.MethodDeclaration ||
+            node.kind === ts.SyntaxKind.SetAccessor || node.kind === ts.SyntaxKind.GetAccessor) {
+            if (posInside(node)) {
+                const all = [node];
+                if (node.kind === ts.SyntaxKind.SetAccessor || node.kind === ts.SyntaxKind.GetAccessor) {
+                    const other = findOtherAccessor(node as ts.AccessorDeclaration);
+                    if (other) {
+                        all.push(other);
+                    }
+                }
+                return all;
+            }
         } else if (node.kind === ts.SyntaxKind.Constructor) {
             const ctor = node as ts.ConstructorDeclaration;
             let param = ctor.parameters.find(it => posInside(it));
             if (!param && posInside(ctor)) {
                 param = ctor.parameters[0];
             }
-            return param;
+            if (param) {
+                return [param];
+            }
         }
-        return undefined;
+        return [];
     }
 
     function visitor(node: ts.Node) {
-        const found = findNode(node);
-        if (found) {
+        findNodes(node).forEach(found => {
+
+            const isParam = found.kind === ts.SyntaxKind.Parameter;
             const nodeText = text.substring(found.getStart(), found.getEnd());
-            for (let i = 0, n = MODS.length; i < n; i++) {
-                const mod = MODS[i];
+            let modFound = false;
+            const mods = isParam || includePublic ? ALL_MODS : MODS_NO_PUBLIC;
+            for (let i = 0, n = mods.length; i < n; i++) {
+                const mod = mods[i];
                 if (nodeText.startsWith(mod)) {
-                    change = { span: { start: found.getStart(), length: mod.length }, newText: (i + 1 < n) ? MODS[i + 1] : '' };
+                    changes = changes || [];
+                    changes.push({ span: { start: found.getStart(), length: mod.length }, newText: (i + 1 < n) ? mods[i + 1] : '' });
+                    modFound = true;
                     break;
                 }
             }
-            if (!change) {
-                change = { span: { start: found.getStart(), length: 0 }, newText: MODS[0] };
+            if (!modFound) {
+                changes = changes || [];
+                changes.push({ span: { start: found.getStart(), length: 0 }, newText: mods[0] });
             }
+        });
+
+        if (changes) {
+            return true;
         }
 
-        if (!change) {
-            ts.forEachChild(node, visitor);
-        }
+        ts.forEachChild(node, visitor);
     }
 }

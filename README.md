@@ -7,6 +7,23 @@ After installing, pressing `F1` and entering `x:` you should see the Refactorix 
 
 ## Refactorings
 
+### Toggle access modifier
+Toggles between `private`, `protected`, `public` and no access modifier.
+
+Place the cursor on a class property, method, constructor parameter, set or get accessor and invoke the command.
+
+When placed on a get or set accessor, the modifier of the other accessor is toggled as well.
+
+#### Settings
+Add this configuration block to the VS Code 'User' or 'Workspace' settings:
+```
+"extension.refactorix.Access.toggle": {
+    "includePublic": true
+}
+```
+
+`includePublic` - if `true`, the `public` modifier will be included for all elements. If `false`, only for constructor parameters.
+
 ### Interpolate string part
 
 Surrounds the selected part of a string literal with `${}` and converts the literal to backticks as necessary.
@@ -87,46 +104,11 @@ Converts all arrow function single statement blocks to expression.
 ### Extract variable
 Replaces the selected text with a `const` variable declaration. This command operates on text rather than AST, so the location of the variable declaration may not be appropriate in all cases.
 
-## Assign a shortcut
-Insert this into your `keybindings.json`:
-```
-{
-    "key": "ctrl+;",
-    "command": "extension.refactorix.Semicolons.Add",
-    "when": "editorTextFocus"
-},
-{
-    "key": "ctrl+shift+;",
-    "command": "extension.refactorix.Semicolons.Remove",
-    "when": "editorTextFocus"
-},
-{
-    "key": "ctrl+]",
-    "command": "extension.refactorix.ArrowFunction.ToggleSingleStatementBlockExpression",
-    "when": "editorTextFocus"
-},
-{
-    "key": "ctrl+shift+]",
-    "command": "extension.refactorix.ArrowFunction.SingleStatementBlockToExpressionAll",
-    "when": "editorTextFocus"
-},
-{
-    "key": "alt+shift+l",
-    "command": "extension.refactorix.ExtractVariable"
-},
-{
-    "key": "shift+alt+x i",
-    "command": "extension.refactorix.String.Interpolate",
-    "when": "editorTextFocus"
-},
-{
-    "key": "shift+alt+x g",
-    "command": "extension.refactorix.Property.ToGetterSetter",
-    "when": "editorTextFocus"
-},
-```
-
 ## Release Info
+
+v0.3.0
+- Add key bindings to extension
+- New refactoring 'Toggle access modifier'
 
 v0.2.0
 - Semicolons are now added/removed in all the places where tslint's semicolon rule reports a problem

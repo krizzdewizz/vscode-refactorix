@@ -1,11 +1,17 @@
 namespace access {
     class Color {
-        public rgb: string;
-        constructor(x: string) {
+        _rgb: string;
+        get rgb(): string {
+            return 'this._rgb';
+        }
+        set rgb(value: string) {
+            this._rgb = value;
+        }
+        constructor(x: string, private y:number) {
             /* */
         }
 
-        foo() {
+        public foo() {
 
         }
     }
