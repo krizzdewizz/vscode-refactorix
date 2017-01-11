@@ -1,5 +1,9 @@
 namespace property {
     class Color {
-        rgb: string;
+        rgb: string
+
+        xx = () => {
+//
+        }
     }
 }

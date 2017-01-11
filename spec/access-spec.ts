@@ -7,7 +7,7 @@ describe('access-spec-data.ts', () => {
 
     const fileName = './spec/access-spec-data.ts';
     const content = fs.readFileSync(fileName).toString();
-    const sourceFile = ts.createSourceFile(fileName, content, ts.ScriptTarget.ES6, true);
+    const sourceFile = ts.createSourceFile(fileName, content, ts.ScriptTarget.Latest, true);
 
     describe('toggle', () => {
 

@@ -1,7 +1,7 @@
 {
   "name": "refactorix",
   "description": "TypeScript refactoring tools for Visual Studio Code",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "publisher": "krizzdewizz",
   "engines": {
     "vscode": "^0.10.1"
@@ -105,10 +105,11 @@
     "compile": "node ./node_modules/vscode/bin/compile --watch -p ./"
   },
   "dependencies": {
-    "typescript": "1.8.2"
+    "typescript": "*"
   },
   "devDependencies": {
-    "tslint": "^3.8.1",
+    "tslint": "*",
+    "tslint-microsoft-contrib": "*",
     "vscode": "0.10.x",
     "jasmine": "*"
   }

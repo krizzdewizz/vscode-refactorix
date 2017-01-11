@@ -26,6 +26,6 @@ export function createSourceFileFromActiveEditor(): { editor: vs.TextEditor, sou
         return undefined;
     }
     const doc = editor.document;
-    const sourceFile = ts.createSourceFile(doc.fileName, doc.getText(), ts.ScriptTarget.ES6, true);
+    const sourceFile = ts.createSourceFile(doc.fileName, doc.getText(), ts.ScriptTarget.Latest, true);
     return { editor, sourceFile };
 }
