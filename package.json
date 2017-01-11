@@ -105,12 +105,11 @@
     "compile": "node ./node_modules/vscode/bin/compile --watch -p ./"
   },
   "dependencies": {
-    "typescript": "*"
+    "typescript": "1.8.2"
   },
   "devDependencies": {
-    "tslint": "*",
+    "tslint": "^3.8.1",
     "vscode": "0.10.x",
-    "tslint-microsoft-contrib": "*",
     "jasmine": "*"
   }
 }
