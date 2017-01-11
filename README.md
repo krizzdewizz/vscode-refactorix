@@ -106,6 +106,9 @@ Replaces the selected text with a `const` variable declaration. This command ope
 
 ## Release Info
 
+v0.3.1
+- Do not add semicolon to arrow function property with block as newest tslint reports a problem there.
+
 v0.3.0
 - Add key bindings to extension
 - New refactoring 'Toggle access modifier'

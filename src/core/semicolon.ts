@@ -1,5 +1,28 @@
 import * as ts from 'typescript';
 
+import { findChildOfKind, contains, childrenOf, hasOverlaps, inRange } from './refactor';
+
+function isArrowFunctionPropertyWithBlock(node: ts.Node): boolean {
+
+    if (node.kind !== ts.SyntaxKind.PropertyDeclaration) {
+        return false;
+    }
+
+    let found: boolean;
+    ts.forEachChild(node, visitor);
+    return found;
+
+    function visitor(node: ts.Node) {
+        if (node.kind === ts.SyntaxKind.ArrowFunction && findChildOfKind(node, ts.SyntaxKind.Block)) {
+            found = true;
+        }
+
+        if (!found) {
+            ts.forEachChild(node, visitor);
+        }
+    }
+}
+
 export function semicolons(sourceFile: ts.SourceFile, add: boolean): number[] {
     const changes: number[] = [];
     const text = sourceFile.getFullText();
@@ -7,6 +30,9 @@ export function semicolons(sourceFile: ts.SourceFile, add: boolean): number[] {
     return changes;
 
     function checkSemi(node: ts.Node) {
+        if (isArrowFunctionPropertyWithBlock(node)) {
+            return;
+        }
         const last = text.substr(node.getEnd() - 1, 1);
         const semi = last === ';';
         if (add && !semi || !add && semi) {
@@ -27,7 +53,6 @@ export function semicolons(sourceFile: ts.SourceFile, add: boolean): number[] {
             case ts.SyntaxKind.ImportEqualsDeclaration:
             case ts.SyntaxKind.DoStatement:
             case ts.SyntaxKind.DebuggerStatement:
-            case ts.SyntaxKind.ExportAssignment:
             case ts.SyntaxKind.PropertyDeclaration:
                 checkSemi(node);
                 break;

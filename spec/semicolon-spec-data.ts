@@ -9,6 +9,10 @@ function missingSemicolons() {
         foo
 
         xxxx = () => 0
+
+        arrowWithBlock = () => {
+            //
+        }
     }
 
     do {
