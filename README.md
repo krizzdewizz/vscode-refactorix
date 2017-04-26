@@ -104,7 +104,21 @@ Converts all arrow function single statement blocks to expression.
 ### Extract variable
 Replaces the selected text with a `const` variable declaration. This command operates on text rather than AST, so the location of the variable declaration may not be appropriate in all cases.
 
+#### Settings
+Add this configuration block to the VS Code 'User' or 'Workspace' settings:
+```
+"extension.refactorix.ExtractVariable": {
+    "noSemicolon": true
+}
+```
+
+`noSemicolon` - Whether to add a semicolon to the extracted expression. Default is false (will add a semicolon).
+
 ## Release Info
+
+v0.3.3
+- Add 'noSemicolon' configuration setting for Extract variable.
+- Add configuration schema to extension.
 
 v0.3.2
 - Latest TypeScript.

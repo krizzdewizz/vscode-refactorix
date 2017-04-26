@@ -1,6 +1,10 @@
 import * as vs from 'vscode';
 
-import {getIndentAtLine} from './refactor';
+import { getIndentAtLine } from './refactor';
+
+export interface ExtractVariableOptions {
+    noSemicolon?: boolean;
+}
 
 export function extractVariable(): void {
     const editor = vs.window.activeTextEditor;
@@ -8,6 +12,8 @@ export function extractVariable(): void {
         return;
     }
 
+    const options: ExtractVariableOptions = vs.workspace.getConfiguration('extension.refactorix.ExtractVariable');
+    const semi = options.noSemicolon ? '' : ';';
     const doc = editor.document;
     const sel = editor.selection;
     const text = doc.getText(sel);
@@ -15,7 +21,7 @@ export function extractVariable(): void {
     const line = doc.lineAt(sel.start).lineNumber;
     const theVar = 'xxx';
     const prefix = `${indent}const `;
-    const allText = `${prefix}${theVar} = ${text};\n`;
+    const allText = `${prefix}${theVar} = ${text}${semi}\n`;
 
     editor.edit(builder => {
         builder.insert(new vs.Position(line, 0), allText);
