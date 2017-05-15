@@ -133,6 +133,9 @@ Add this configuration block to the VS Code 'User' or 'Workspace' settings:
 
 ## Release Info
 
+v0.3.6
+- 'Split variable declaration' - use inner most declaration.
+
 v0.3.5
 - 'Split variable declaration' - resolve variable type.
 
