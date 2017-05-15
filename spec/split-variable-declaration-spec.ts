@@ -12,7 +12,7 @@ describe('split-variable-declaration-spec-data.ts', () => {
 
     describe('split-variable-declaration', () => {
         it('should find changes', () => {
-            expect(splitVariableDeclaration(sourceFile, { start: 7, length: 0 }, '')).not.toBeUndefined();
+            expect(splitVariableDeclaration(sourceFile, undefined, { start: 7, length: 0 }, '')).not.toBeUndefined();
         });
     });
 });

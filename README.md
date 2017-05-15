@@ -20,7 +20,7 @@ const x = false;
 
 After:
 ```
-let x: type; // type part is selected in the editor and must be completed by user
+let x: boolean;
 x = false;
 ```
 
@@ -132,6 +132,9 @@ Add this configuration block to the VS Code 'User' or 'Workspace' settings:
 `noSemicolon` - Whether to add a semicolon to the extracted expression. Default is false (will add a semicolon).
 
 ## Release Info
+
+v0.3.5
+- 'Split variable declaration' - resolve variable type.
 
 v0.3.4
 - New refactoring 'Split variable declaration'
