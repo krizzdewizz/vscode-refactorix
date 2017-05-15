@@ -22,7 +22,7 @@ export function splitVariableDeclaration(): void {
             if (ok) {
                 const sel = change.selection;
                 if (sel) {
-                    editor.selection = new vs.Selection(document.positionAt(sel.start), document.positionAt(sel.start + sel.length));
+                    editor.selection = new vs.Selection(document.positionAt(sel.start), document.positionAt(sel.start));
                 } else {
                     const nextLine = selection.start.line + 1;
                     const lastCol = Number.POSITIVE_INFINITY;
