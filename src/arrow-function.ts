@@ -44,7 +44,7 @@ export function singleStatementBlockToExpression(replaceAll: boolean) {
         const editor = source.editor;
         const {document, selection} = editor;
 
-        let all = singleStatementBlockToExpressions(source.sourceFile, replaceAll ? undefined : selectionToSpan(document, selection));
+        const all = singleStatementBlockToExpressions(source.sourceFile, replaceAll ? undefined : selectionToSpan(document, selection));
         if (all.changes.length === 0) {
             return;
         }

@@ -11,10 +11,8 @@ describe('split-variable-declaration-spec-data.ts', () => {
     const sourceFile = ts.createSourceFile(fileName, content, ts.ScriptTarget.Latest, true);
 
     describe('split-variable-declaration', () => {
-
-
         it('should find changes', () => {
-            expect(splitVariableDeclaration(sourceFile, { start: 7, length: 0 })).not.toBeUndefined();
+            expect(splitVariableDeclaration(sourceFile, { start: 7, length: 0 }, '')).not.toBeUndefined();
         });
     });
 });
