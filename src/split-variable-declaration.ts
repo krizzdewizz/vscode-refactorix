@@ -22,10 +22,10 @@ export function splitVariableDeclaration(): void {
             if (ok) {
                 const sel = change.selection;
                 if (sel) {
-                    editor.selection = new vs.Selection(document.positionAt(sel.start), document.positionAt(sel.start));
+                    editor.selection = new vs.Selection(document.positionAt(sel.start), document.positionAt(sel.start + sel.length));
                 } else {
                     const nextLine = selection.start.line + 1;
-                    const lastCol = Number.POSITIVE_INFINITY;
+                    const lastCol = 10000;
                     editor.selection = new vs.Selection(nextLine, lastCol, nextLine, lastCol);
                 }
             }
