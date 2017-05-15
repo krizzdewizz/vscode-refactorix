@@ -32,16 +32,26 @@ function resolveType(expr: ts.Node, doc: vs.TextDocument): Promise<string> {
 
         if (expr) {
             vs.commands.executeCommand('vscode.executeHoverProvider', doc.uri, doc.positionAt(expr.getStart())).then(val => {
-                if (Array.isArray(val)) {
-                    const contents = val[0].contents[0];
-                    if (contents) {
-                        const info: string = contents.value;
-                        const pos = info.indexOf(':');
-                        if (pos >= 0) {
-                            const type = info.substring(pos + 1).trim();
-                            resolve(narrowType(type));
-                            return;
+                const hovers: vs.Hover[] = Array.isArray(val) ? val : [val];
+                let value: string;
+                hovers.find(hover => {
+                    hover.contents.find(ms => {
+                        if (typeof ms === 'string') {
+                            value = ms;
+                        } else if (ms.language === 'typescript') {
+                            value = ms.value;
                         }
+                        return Boolean(value);
+                    });
+                    return Boolean(value);
+                });
+
+                if (value) {
+                    const pos = value.indexOf(':');
+                    if (pos >= 0) {
+                        const type = value.substring(pos + 1).trim();
+                        resolve(narrowType(type));
+                        return;
                     }
                 }
                 def();
