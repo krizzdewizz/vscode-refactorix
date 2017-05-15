@@ -62,22 +62,28 @@ function resolveType(expr: ts.Node, doc: vs.TextDocument): Promise<string> {
     });
 }
 
+interface Decl {
+    varStatement: ts.VariableStatement;
+    declInit: ts.Expression;
+    declName: ts.BindingName;
+    declType: ts.TypeNode;
+}
+
 export function splitVariableDeclaration(sourceFile: ts.SourceFile, doc: vs.TextDocument, range: ts.TextSpan, indent: string): Promise<{ change: ts.TextChange, selection?: ts.TextSpan }> {
 
-    let varStatement: ts.VariableStatement;
-    let declInit: ts.Expression;
-    let declName: ts.BindingName;
-    let declType: ts.TypeNode;
+    const decls: Decl[] = [];
     const text = sourceFile.getFullText();
 
     visitor(sourceFile);
 
     return new Promise(resolve => {
 
-        if (!declInit) {
+        if (decls.length === 0) {
             resolve(undefined);
             return;
         }
+
+        const { varStatement, declName, declInit, declType } = decls[decls.length - 1];
 
         function resolveChange(initType: string) {
 
@@ -110,22 +116,15 @@ export function splitVariableDeclaration(sourceFile: ts.SourceFile, doc: vs.Text
 
     function visitor(node: ts.Node) {
         if (node.kind === ts.SyntaxKind.VariableStatement && inRange(node, range)) {
-
-            const varState = node as ts.VariableStatement;
-            const decl = varState.declarationList.declarations[0];
-            declInit = decl.initializer;
-            if (!declInit) {
-                return;
+            const varStatement = node as ts.VariableStatement;
+            const decl = varStatement.declarationList.declarations[0];
+            const declInit = decl.initializer;
+            if (declInit) {
+                decls.push({ varStatement, declName: decl.name, declType: decl.type, declInit });
             }
-
-            varStatement = varState;
-            declName = decl.name;
-            declType = decl.type;
         }
 
-        if (!declInit) {
-            ts.forEachChild(node, visitor);
-        }
+        ts.forEachChild(node, visitor);
     }
 }
 
