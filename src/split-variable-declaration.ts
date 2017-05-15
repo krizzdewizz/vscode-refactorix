@@ -12,7 +12,7 @@ export function splitVariableDeclaration(): void {
     const editor = source.editor;
     const { document, selection } = editor;
 
-    const change = coreSplitVariableDeclaration(source.sourceFile, selectionToSpan(document, selection));
+    const change = coreSplitVariableDeclaration(source.sourceFile, selectionToSpan(document, selection), getIndentAtLine(document, selection.start.line));
     if (!change) {
         return;
     }

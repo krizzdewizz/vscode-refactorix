@@ -7,7 +7,7 @@ import {
     inRange
 } from './refactor';
 
-export function splitVariableDeclaration(sourceFile: ts.SourceFile, range: ts.TextSpan): { change: ts.TextChange, selection?: ts.TextSpan } {
+export function splitVariableDeclaration(sourceFile: ts.SourceFile, range: ts.TextSpan, indent: string): { change: ts.TextChange, selection?: ts.TextSpan } {
     let change: ts.TextChange;
     let selection: ts.TextSpan;
     const text = sourceFile.getFullText();
@@ -36,7 +36,7 @@ export function splitVariableDeclaration(sourceFile: ts.SourceFile, range: ts.Te
             const selStartMore = wasConst ? 0 : 2;
 
             const beforeInitType = `${declType} ${declName}: `;
-            const newText = `${beforeInitType}${initType}${semi}\n${declName} = ${initText}${semi}`;
+            const newText = `${beforeInitType}${initType}${semi}\n${indent}${declName} = ${initText}${semi}`;
             change = { span: { start: varStatement.getStart(), length: varStatement.getEnd() - varStatement.getStart() }, newText };
             if (!decl.type) {
                 selection = { start: decl.name.getEnd() + selStartMore, length: initType.length };
