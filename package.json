@@ -1,7 +1,7 @@
 {
   "name": "refactorix",
   "description": "TypeScript refactoring tools for Visual Studio Code",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "publisher": "krizzdewizz",
   "engines": {
     "vscode": "^1.11.0"
@@ -68,6 +68,10 @@
       }
     },
     "commands": [
+      {
+        "command": "extension.refactorix.SplitVariableDeclaration",
+        "title": "x: Split variable declaration"
+      },
       {
         "command": "extension.refactorix.ExtractVariable",
         "title": "x: Extract variable"
@@ -140,6 +144,11 @@
       {
         "key": "alt+shift+q",
         "command": "extension.refactorix.Access.toggle",
+        "when": "editorTextFocus"
+      },
+      {
+        "key": "shift+alt+x s",
+        "command": "extension.refactorix.SplitVariableDeclaration",
         "when": "editorTextFocus"
       }
     ]

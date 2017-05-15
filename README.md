@@ -7,6 +7,23 @@ After installing, pressing `F1` and entering `x:` you should see the Refactorix 
 
 ## Refactorings
 
+### Split variable declaration
+
+Splits the initialization part of a variable declaration.
+
+Place the cursor inside a variable declaration statement and invoke the command.
+
+Before:
+```
+const x = false;
+```
+
+After:
+```
+let x: type; // type part is selected in the editor and must be completed by user
+x = false;
+```
+
 ### Toggle access modifier
 Toggles between `private`, `protected`, `public` and no access modifier.
 
@@ -115,6 +132,9 @@ Add this configuration block to the VS Code 'User' or 'Workspace' settings:
 `noSemicolon` - Whether to add a semicolon to the extracted expression. Default is false (will add a semicolon).
 
 ## Release Info
+
+v0.3.4
+- New refactoring 'Split variable declaration'
 
 v0.3.3
 - Add 'noSemicolon' configuration setting for Extract variable.
