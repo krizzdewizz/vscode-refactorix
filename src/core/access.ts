@@ -70,7 +70,7 @@ export function toggle(sourceFile: ts.SourceFile, pos: number, options?: AccessO
             const nodeText = text.substring(found.getStart(), found.getEnd());
             let modFound = false;
             const mods = isParam || preferPublic ? ALL_MODS : MODS_NO_PUBLIC;
-            const def = preferPublic && !isParam ? ALL_MODS[0]  : '';
+            const def = preferPublic && !isParam ? ALL_MODS[0] : '';
             for (let i = 0, n = mods.length; i < n; i++) {
                 const mod = mods[i];
                 if (nodeText.startsWith(mod)) {

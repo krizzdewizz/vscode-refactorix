@@ -1,8 +1,7 @@
 import * as vs from 'vscode';
-import * as ts from 'typescript';
 
-import {semicolons as coreSemicolons} from './core';
-import {createSourceFileFromActiveEditor, changeToRange} from './refactor';
+import { semicolons as coreSemicolons } from './core';
+import { createSourceFileFromActiveEditor } from './refactor';
 
 export function semicolons(add: boolean) {
     const source = createSourceFileFromActiveEditor();
@@ -11,7 +10,7 @@ export function semicolons(add: boolean) {
     }
 
     const editor = source.editor;
-    const {document, selection} = editor;
+    const { document, selection } = editor;
 
     const changes = coreSemicolons(source.sourceFile, add);
     if (changes.length === 0) {

@@ -1,8 +1,7 @@
 import * as vs from 'vscode';
-import * as ts from 'typescript';
 
-import {INTERPOLATE_PREFIX_LEN, interpolate as coreInterpolate} from './core';
-import {changeToRange, selectionToSpan, createSourceFileFromActiveEditor} from './refactor';
+import { INTERPOLATE_PREFIX_LEN, interpolate as coreInterpolate } from './core';
+import { changeToRange, selectionToSpan, createSourceFileFromActiveEditor } from './refactor';
 
 export function interpolate() {
     const source = createSourceFileFromActiveEditor();
@@ -10,7 +9,7 @@ export function interpolate() {
         return;
     }
     const editor = source.editor;
-    const {document, selection} = editor;
+    const { document, selection } = editor;
 
     const changes = coreInterpolate(source.sourceFile, selectionToSpan(document, selection));
     if (!changes) {

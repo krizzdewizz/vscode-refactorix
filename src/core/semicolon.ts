@@ -1,6 +1,6 @@
 import * as ts from 'typescript';
 
-import { findChildOfKind, contains, childrenOf, hasOverlaps, inRange } from './refactor';
+import { findChildOfKind } from './refactor';
 
 function isArrowFunctionPropertyWithBlock(node: ts.Node): boolean {
 

@@ -1,8 +1,7 @@
 import * as vs from 'vscode';
-import * as ts from 'typescript';
 
 import { toggle as coreToggle, AccessOptions } from './core';
-import { getIndentAtLine, getTabs, changeToRange, createSourceFileFromActiveEditor } from './refactor';
+import { changeToRange, createSourceFileFromActiveEditor } from './refactor';
 
 export function toggle() {
     const source = createSourceFileFromActiveEditor();
@@ -10,7 +9,7 @@ export function toggle() {
         return;
     }
     const editor = source.editor;
-    const {document, selection} = editor;
+    const { document, selection } = editor;
 
     const options: AccessOptions = vs.workspace.getConfiguration('extension.refactorix.Access.toggle');
 

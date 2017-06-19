@@ -1,8 +1,7 @@
 import * as vs from 'vscode';
-import * as ts from 'typescript';
 
-import {toGetterSetter as coreToGetterSetter, GetterSetterOptions} from './core';
-import {getIndentAtLine, getTabs, changeToRange, createSourceFileFromActiveEditor} from './refactor';
+import { toGetterSetter as coreToGetterSetter, GetterSetterOptions } from './core';
+import { getIndentAtLine, getTabs, changeToRange, createSourceFileFromActiveEditor } from './refactor';
 
 export function toGetterSetter() {
     const source = createSourceFileFromActiveEditor();
@@ -10,7 +9,7 @@ export function toGetterSetter() {
         return;
     }
     const editor = source.editor;
-    const {document, selection} = editor;
+    const { document, selection } = editor;
 
     const options: GetterSetterOptions = vs.workspace.getConfiguration('extension.refactorix.Property.ToGetterSetter');
 

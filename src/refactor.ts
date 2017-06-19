@@ -1,7 +1,7 @@
 import * as ts from 'typescript';
 import * as vs from 'vscode';
 
-import {getIndent, ParseDiagnostics} from './core';
+import { getIndent } from './core';
 
 export function getTabs(editor: vs.TextEditor, nTabs: number): string {
     return (editor.options.insertSpaces ? ' ' : '\t').repeat(Number(editor.options.tabSize) * nTabs);

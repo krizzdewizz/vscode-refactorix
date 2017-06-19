@@ -1,6 +1,6 @@
 import * as ts from 'typescript';
 
-import { findChildOfKind, childrenOf } from './refactor';
+import { findChildOfKind } from './refactor';
 
 function findType(node: ts.Node): ts.Node {
     let typeNode;

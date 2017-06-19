@@ -1,12 +1,6 @@
 import * as ts from 'typescript';
 import * as vs from 'vscode';
-import {
-    childrenOf,
-    contains,
-    findChildOfKind,
-    hasOverlaps,
-    inRange
-} from './refactor';
+import { inRange } from './refactor';
 
 function narrowType(type: string): string {
     if (type.startsWith('"') && type.endsWith('"')) {

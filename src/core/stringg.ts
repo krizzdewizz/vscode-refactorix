@@ -1,7 +1,5 @@
 import * as ts from 'typescript';
 
-import { findChildOfKind, childrenOf } from './refactor';
-
 const PREFIX = '${';
 const SUFFIX = '}';
 const BACKTICK = '`';

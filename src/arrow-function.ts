@@ -1,6 +1,3 @@
-import * as vs from 'vscode';
-import * as ts from 'typescript';
-
 import { singleStatementBlockToExpressions, expressionToBlock as coreExpressionToBlock } from './core';
 import { getIndentAtLine, getTabs, changeToRange, selectionToSpan, createSourceFileFromActiveEditor } from './refactor';
 
@@ -16,7 +13,7 @@ export function expressionToBlock(): boolean {
         return false;
     }
     const editor = source.editor;
-    const {document, selection} = editor;
+    const { document, selection } = editor;
 
     const change = coreExpressionToBlock(source.sourceFile, selectionToSpan(document, selection), getIndentAtLine(document, selection.start.line), getTabs(editor, 1));
     if (!change) {
@@ -42,7 +39,7 @@ export function singleStatementBlockToExpression(replaceAll: boolean) {
             return;
         }
         const editor = source.editor;
-        const {document, selection} = editor;
+        const { document, selection } = editor;
 
         const all = singleStatementBlockToExpressions(source.sourceFile, replaceAll ? undefined : selectionToSpan(document, selection));
         if (all.changes.length === 0) {
