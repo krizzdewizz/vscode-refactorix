@@ -4,7 +4,7 @@ export interface ParseDiagnostics extends ts.SourceFile {
     parseDiagnostics: {
         messageText: string;
     }[];
-};
+}
 
 export function getIndent(text: string): string {
     let indent = '';
@@ -25,7 +25,9 @@ export function findChildOfKind(node: ts.Node, kind: ts.SyntaxKind): ts.Node {
 
 export function childrenOf(node: ts.Node): ts.Node[] {
     const all = [];
-    ts.forEachChild(node, it => all.push(it));
+    ts.forEachChild(node, it => {
+        all.push(it);
+    });
     return all;
 }
 
