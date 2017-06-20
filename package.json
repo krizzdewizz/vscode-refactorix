@@ -1,10 +1,10 @@
 {
   "name": "refactorix",
   "description": "TypeScript refactoring tools for Visual Studio Code",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "publisher": "krizzdewizz",
   "engines": {
-    "vscode": "^1.11.0"
+    "vscode": "^1.13.0"
   },
   "categories": [
     "Other"
@@ -103,6 +103,22 @@
       {
         "command": "extension.refactorix.Access.toggle",
         "title": "x: Toggle access modifier"
+      },
+      {
+        "command": "extension.refactorix.clever-selection.grow.enclose",
+        "title": "x: Select Enclosing Element"
+      },
+      {
+        "command": "extension.refactorix.clever-selection.grow.next",
+        "title": "x: Select Next Element"
+      },
+      {
+        "command": "extension.refactorix.clever-selection.grow.previous",
+        "title": "x: Select Previous Element"
+      },
+      {
+        "command": "extension.refactorix.clever-selection.shrink",
+        "title": "x: Shrink Selection"
       }
     ],
     "keybindings": [
@@ -151,7 +167,15 @@
         "command": "extension.refactorix.SplitVariableDeclaration",
         "when": "editorTextFocus"
       }
-    ]
+    ],
+    "views": {
+      "explorer": [
+        {
+          "id": "refactorix.ts.ast",
+          "name": "TypeScript AST"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "tsc -p ./",

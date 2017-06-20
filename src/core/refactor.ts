@@ -47,3 +47,10 @@ export function inRange(node: ts.Node, range?: ts.TextSpan): boolean {
     }
     return node.getStart() < range.start && node.getEnd() > range.start + range.length;
 }
+
+export function inRangeInclusive(node: ts.Node, range?: ts.TextSpan): boolean {
+    if (!range) {
+        return true;
+    }
+    return node.getStart() <= range.start && node.getEnd() >= range.start + range.length;
+}
