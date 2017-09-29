@@ -18,18 +18,24 @@ function findType(node: ts.Node): ts.Node {
 export interface GetterSetterOptions {
     prefix?: string; // default _
     singleLine?: boolean;
+    explicitPublicAccess?: boolean;
 }
 
 export function toGetterSetter(sourceFile: ts.SourceFile, pos: number, indent: string, tab: string, options?: GetterSetterOptions): ts.TextChange {
     let prefix = '_';
     let newLine = '\n';
-
+    let access = '';
+    
     if (options && options.prefix) {
         prefix = options.prefix;
     }
 
     if (options && options.singleLine) {
         newLine = '';
+    }
+
+    if (options && options.explicitPublicAccess) {
+        access = 'public ';
     }
 
     const text = sourceFile.getFullText();
@@ -52,8 +58,10 @@ export function toGetterSetter(sourceFile: ts.SourceFile, pos: number, indent: s
                 const nameNode = findChildOfKind(node, ts.SyntaxKind.Identifier);
                 const name = text.substring(nameNode.getStart(), nameNode.getEnd());
                 const nodeText = text.substring(node.getStart(), node.getEnd());
-                const getter = indent + 'get ' + name + '()' + type + ' {' + newLineIndentTab + 'return this.' + prefix + name + ';' + newLineIndent + '}';
-                const setter = indent + 'set ' + name + '(value' + type + ') {' + newLineIndentTab + 'this.' + prefix + name + ' = value;' + newLineIndent + '}';
+                // const getter = indent + 'get ' + name + '()' + type + ' {' + newLineIndentTab + 'return this.' + prefix + name + ';' + newLineIndent + '}';
+                // const setter = indent + 'set ' + name + '(value' + type + ') {' + newLineIndentTab + 'this.' + prefix + name + ' = value;' + newLineIndent + '}';
+                const getter = `${indent}${access}get ${name}()${type} {${newLineIndentTab}return this.${prefix}${name};${newLineIndent}}`;
+                const setter = `${indent}${access}set ${name}(value${type}) {${newLineIndentTab}this.${prefix}${name} = value;${newLineIndent}}`;
                 const newText = 'private ' + prefix + nodeText + '\n' + getter + '\n' + setter;
                 change = { span, newText };
             }
