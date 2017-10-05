@@ -35,10 +35,6 @@ function skipWhitespace(doc: vscode.TextDocument, pos: number): vscode.Position 
     return doc.positionAt(pos);
 }
 
-export enum Grow {
-    ENCLOSING, NEXT, PREVIOUS
-}
-
 interface Elem {
     node: ts.Node;
     sel: vscode.Selection;
@@ -51,7 +47,7 @@ function nextSibling(node: ts.Node, next: boolean): ts.Node {
     return all[idx + (next ? 1 : -1)];
 }
 
-export function growSelection(grow: Grow) {
+export function growSelection() {
     const source = createSourceFileFromActiveEditor();
     if (!source) {
         return;
@@ -71,9 +67,6 @@ export function growSelection(grow: Grow) {
         }
 
         const text = doc.getText().substring(node.getStart(), node.getEnd());
-        // if (t === 'foo') {
-        //     console.log('tttttttttt', t);
-        // }
 
         if (inRangeInclusive(node, startRange)) {
             candidates.push({ node, sel: makeSel(node), text });
@@ -104,34 +97,8 @@ export function growSelection(grow: Grow) {
     });
 
     const q: Elem = prev || last;
-    let newSel: vscode.Selection;
-
-    if (editorSel.isEmpty) {
-        grow = Grow.ENCLOSING;
-    }
-
-    switch (grow) {
-        case Grow.ENCLOSING:
-            newSel = q.sel;
-            break;
-        case Grow.NEXT:
-            const sib = nextSibling(last.node, true);
-            if (sib) {
-                const qqq = doc.getText().substring(sib.getStart(), sib.getEnd());
-                const tmpSel = new vscode.Selection(last.sel.start, doc.positionAt(sib.end));
-                newSel = tmpSel.isEqual(editorSel) ? makeSel(last.node.parent) : tmpSel;
-            } else {
-                // newSel = sib ? makeSel(sib) : makeSel(q.node.parent);
-                newSel = makeSel(q.node.parent);
-            }
-            break;
-        case Grow.PREVIOUS:
-            break;
-        default:
-            throw new Error(`unhandled: ${grow}`);
-    }
 
     history.push(editorSel);
-    editor.selection = newSel;
+    editor.selection = q.sel;
 }
 

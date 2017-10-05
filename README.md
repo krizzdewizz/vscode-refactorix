@@ -7,6 +7,23 @@ After installing, pressing `F1` and entering `x:` you should see the Refactorix 
 
 ## Refactorings
 
+### Grow Selection / Shrink Selection
+
+Though not a refactoring, these help in doing so. They operate on the TypeScript AST and serve as an alternative to the built in commands 'Expand Select' and 'Shrink Select'.
+
+Use these keybindings to replace the original ones:
+
+```
+{
+    "key": "shift+alt+up",
+    "command": "extension.refactorix.grow-selection"
+},
+{
+    "key": "shift+alt+down",
+    "command": "extension.refactorix.shrink-selection"
+}
+```
+
 ### Split variable declaration
 
 Splits the initialization part of a variable declaration.
@@ -87,13 +104,16 @@ Add this configuration block to the VS Code 'User' or 'Workspace' settings:
 ```
 "extension.refactorix.Property.ToGetterSetter": {
     "singleLine": false,
-     "prefix": "_"
+     "prefix": "_",
+     "explicitPublicAccess": false
 }
 ```
 
 `singleLine` - if `true`, getter and setter will be written on a single line.
 
 `prefix` - Prefix for the property.
+
+`explicitPublicAccess` - Add 'public' to the generated getter/setter.
 
 ### Add/remove semicolons
 Adds or removes semicolons for all statements in the active document.
@@ -132,6 +152,10 @@ Add this configuration block to the VS Code 'User' or 'Workspace' settings:
 `noSemicolon` - Whether to add a semicolon to the extracted expression. Default is false (will add a semicolon).
 
 ## Release Info
+
+v0.3.7
+- New configurable option 'explicitPublicAccess' for the 'Property to getter/setter' refactoring - Thanks to joseluisb.
+- New commands 'Grow Selection' and 'Shrink Selection'.
 
 v0.3.6
 - 'Split variable declaration' - use inner most declaration.

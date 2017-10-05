@@ -12,7 +12,7 @@ export function extractVariable(): void {
         return;
     }
 
-    const options: ExtractVariableOptions = vs.workspace.getConfiguration('extension.refactorix.ExtractVariable');
+    const options = vs.workspace.getConfiguration('extension.refactorix.ExtractVariable') as ExtractVariableOptions;
     const semi = options.noSemicolon ? '' : ';';
     const doc = editor.document;
     const sel = editor.selection;

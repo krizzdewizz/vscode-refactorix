@@ -11,7 +11,7 @@ export function toggle() {
     const editor = source.editor;
     const { document, selection } = editor;
 
-    const options: AccessOptions = vs.workspace.getConfiguration('extension.refactorix.Access.toggle');
+    const options = vs.workspace.getConfiguration('extension.refactorix.Access.toggle') as AccessOptions;
 
     const changes = coreToggle(source.sourceFile, document.offsetAt(selection.start), options);
     if (!changes) {

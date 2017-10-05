@@ -2,7 +2,8 @@
 {
     "extension.refactorix.Property.ToGetterSetter": {
         "singleLine": false,
-        "prefix": "_"
+        "prefix": "_",
+        "explicitPublicAccess": false
     },
     "extension.refactorix.Access.toggle": {
         "preferPublic": false

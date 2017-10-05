@@ -11,7 +11,7 @@ export function toGetterSetter() {
     const editor = source.editor;
     const { document, selection } = editor;
 
-    const options: GetterSetterOptions = vs.workspace.getConfiguration('extension.refactorix.Property.ToGetterSetter');
+    const options = vs.workspace.getConfiguration('extension.refactorix.Property.ToGetterSetter') as GetterSetterOptions;
 
     const change = coreToGetterSetter(source.sourceFile, document.offsetAt(selection.start), getIndentAtLine(document, selection.start.line), getTabs(editor, 1), options);
     if (!change) {

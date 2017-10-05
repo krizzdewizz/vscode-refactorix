@@ -25,7 +25,7 @@ export function toGetterSetter(sourceFile: ts.SourceFile, pos: number, indent: s
     let prefix = '_';
     let newLine = '\n';
     let access = '';
-    
+
     if (options && options.prefix) {
         prefix = options.prefix;
     }
