@@ -9,7 +9,7 @@ After installing, pressing `F1` and entering `x:` you should see the Refactorix 
 
 ### Grow Selection / Shrink Selection
 
-Though not a refactoring, these help in doing so. They operate on the TypeScript AST and serve as an alternative to the built in commands 'Expand Select' and 'Shrink Select'.
+Though not a refactoring, these commands help in doing so. They operate on the TypeScript AST and serve as an alternative to the built in commands 'Expand Select' and 'Shrink Select'.
 
 Use these keybindings to replace the original ones:
 
